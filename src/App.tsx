@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import VoiceOS from './app/VoiceOS';
+import { Caller } from './phone';
 import { PatientApp } from './app/PatientApp';
 import { Family, Landing, MemoryBook, MyDay, Practice, Progress } from './pages';
 
@@ -18,6 +19,7 @@ export default function App() {
   if (r === 'day') return <MyDay />;
   if (r === 'practice') return <Practice />;
   if (r === 'progress') return <Progress />;
+  if (r.startsWith('caller')) return <Caller />;
   if (r === 'classic') return <PatientApp />;
   return <VoiceOS />;
 }

@@ -24,13 +24,13 @@ npm run dev
 ```
 
 Open http://localhost:5173/#/app (phone-sized window, or on a phone on the same Wi-Fi via the Network URL Vite prints).
-Routes: `#/` landing · `#/app` VoiceOS · `#/family` family bridge · `#/memory` `#/day` `#/practice` `#/progress`.
+Routes: `#/caller` Ellie's side of a call · `#/` landing · `#/app` VoiceOS · `#/family` family bridge · `#/memory` `#/day` `#/practice` `#/progress`.
 
 Every server is optional. If one is down, the app falls back: offline candidate guesses, the device voice (the status bar says so), or a local simplifier.
 
 ## Demo path (verified in the browser)
 1. Home → **Read** → tap the electric-bill sample (or hold up the paper bill). Claude reads it in ~9 s: Valley Power & Light, $84.12, due Sat Nov 21.
-2. **Call Ellie about it** → the simulated call connects ("Hi Grandpa! … It's my birthday!").
+2. **Call Ellie about it**. For a real two-device call, open `http://<laptop-ip>:5173/#/caller` on a second device (Ellie) first. Her words reach Frank simplified with pictures, and his replies play on her device in his cloned voice. If nobody joins within 5 s, a clearly labelled "Simulated Ellie" takes over.
 3. Talk or type fragments: `bill… money… help… Saturday`. Three cards appear (~3–5 s).
 4. Tap card 1 → it is spoken in Frank's cloned voice, and Ellie replies.
 5. Also try: Messages → Ellie (simplified with icons), Talk with `water… no… Ellie… phone… birthday`, Memories → "Tell this story", Emergency (hold).

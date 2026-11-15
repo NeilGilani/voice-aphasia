@@ -11,6 +11,7 @@ import { Emergency, MemoryBook as MemoryCards, MemoryDetail, Money } from './scr
 import { FamilyBridge, MemoryBook, MyDay, Practice, Progress } from '../pages';
 import { AboutMe } from './screens/System';
 import { MESSAGES } from './os/persona';
+import { registerPhone } from '../phone';
 
 const unread = () => MESSAGES.filter((m) => !m.read).length;
 
@@ -37,6 +38,8 @@ registerApp({ id: 'person', name: 'Person', emoji: '👤', hue: 0, component: Pe
 registerApp({ id: 'call', name: 'Call', emoji: '📞', hue: 140, component: Call, hidden: true });
 registerApp({ id: 'thread', name: 'Thread', emoji: '💬', hue: 200, component: Thread, hidden: true });
 registerApp({ id: 'memory', name: 'Memory', emoji: '📖', hue: 25, component: MemoryDetail, hidden: true });
+
+registerPhone();
 
 /** A gentle incoming notification so the OS feels alive on first open. */
 function Boot() {
