@@ -11,7 +11,7 @@ function Test() {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: 16 }}>
       <h2 style={{ margin: '4px 0 12px' }}>Vision test</h2>
-      <VisionCamera debug={debug} facingMode={facing} />
+      <VisionCamera debug={debug} facingMode={facing} imageUrl={new URLSearchParams(location.search).get('image') ?? undefined} />
       <div style={{ display: 'flex', gap: 12, margin: '12px 0' }}>
         <label><input type="checkbox" checked={debug} onChange={(e) => setDebug(e.target.checked)} /> debug boxes</label>
         <button onClick={() => setFacing(facing === 'user' ? 'environment' : 'user')}>flip camera</button>

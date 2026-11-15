@@ -6,9 +6,25 @@ export interface UseVisionOptions {
   enabled?: boolean;
   /** 'user' = selfie camera (default; person holds things up), 'environment' = rear. */
   facingMode?: 'user' | 'environment';
+  /** Test hook: use a still image (looped as a video stream) instead of the camera. */
+  imageUrl?: string;
 }
 
-export function useVision({ enabled = true, facingMode = 'user' }: UseVisionOptions = {}) {
+async function imageStream(url: string): Promise<MediaStream> {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.src = url;
+  await img.decode();
+  const c = document.createElement('canvas');
+  c.width = img.naturalWidth; c.height = img.naturalHeight;
+  const ctx = c.getContext('2d')!;
+  // Redraw continuously so the stream keeps producing frames.
+  const loop = () => { ctx.drawImage(img, 0, 0); requestAnimationFrame(loop); };
+  loop();
+  return c.captureStream(15);
+}
+
+export function useVision({ enabled = true, facingMode = 'user', imageUrl }: UseVisionOptions = {}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'running' | 'error'>('idle');
   const [error, setError] = useState<string>();
@@ -22,7 +38,7 @@ export function useVision({ enabled = true, facingMode = 'user' }: UseVisionOpti
     (async () => {
       try {
         const [s] = await Promise.all([
-          navigator.mediaDevices.getUserMedia({
+          imageUrl ? imageStream(imageUrl) : navigator.mediaDevices.getUserMedia({
             video: { facingMode, width: { ideal: 640 }, height: { ideal: 480 } },
             audio: false,
           }),
@@ -48,9 +64,9 @@ export function useVision({ enabled = true, facingMode = 'user' }: UseVisionOpti
       vision.stop();
       stream?.getTracks().forEach((t) => t.stop());
     };
-  }, [enabled, facingMode]);
+  }, [enabled, facingMode, imageUrl]);
 
   const getSeen = useCallback((seconds = 5, since?: number): SeenObject[] => vision.getSeen(seconds * 1000, since), []);
 
-  return { videoRef, status, error, frame, getSeen, mirrored: facingMode === 'user' };
+  return { videoRef, status, error, frame, getSeen, mirrored: facingMode === 'user' && !imageUrl };
 }
