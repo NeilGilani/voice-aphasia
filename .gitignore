@@ -4,3 +4,6 @@ dist
 .env.*
 *.log
 .DS_Store
+
+# voice clone data / venvs
+server/__pycache__/
