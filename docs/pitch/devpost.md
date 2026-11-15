@@ -1,18 +1,24 @@
-# VoiceOS: the words are still there. We built everything else around that.
+# VoiceOS: the voice assistant, elevated for the people it leaves behind
 
-## Inspiration
-Aphasia is a language disorder, most often caused by a stroke. The person still understands, still thinks, and knows exactly what
-they want to say, but the words come out broken: "water… no… Ellie… phone… birthday." And it isn't only conversation.
-Phones assume you can find a name, bills assume you can read, texts assume you can type a reply. Everyday life becomes a wall of words.
+## Inspiration: the existing product we elevated
+Voice assistants (Siri, Alexa, Google Assistant) are built into almost every phone and smart speaker. They promise hands-free help
+for everyone. But they're tuned to clean, complete commands. Say "Hey Siri… call… uh… Ellie… no… phone" the way a stroke survivor
+with aphasia says it, and you get "Sorry, I didn't get that."
 
-About 2 million people in the U.S. live with aphasia ([NIDCD](https://www.nidcd.nih.gov/health/aphasia)). Roughly 100,000–180,000
-acquire it each year ([ASHA](https://www.asha.org/practice-portal/clinical-topics/aphasia/)), and an estimated 21–38% of acute stroke
-patients develop it ([StatPearls](https://www.ncbi.nlm.nih.gov/books/NBK559315/)).
+The people this fails are often the people who need a voice assistant most:
+- stroke survivors with aphasia (they know what they mean, but the words come out broken);
+- people with dysarthria from Parkinson's or ALS;
+- people who stutter;
+- many older adults.
 
-**Elevate the Ordinary:** VoiceOS gives back the most ordinary things: reading a bill, calling your granddaughter on her birthday, answering her in your own voice.
+About 2 million people in the U.S. live with aphasia alone ([NIDCD](https://www.nidcd.nih.gov/health/aphasia)). Roughly
+100,000–180,000 acquire it each year ([ASHA](https://www.asha.org/practice-portal/clinical-topics/aphasia/)).
+
+**Elevate the Ordinary:** we took the most ordinary piece of tech, the voice assistant, and rebuilt it so it understands
+*meaning* instead of exact words, answers in *your own voice*, and *acts* across your whole life.
 
 ## What it does
-VoiceOS is a phone-first operating system rebuilt around what people with aphasia can still do: recognise faces and pictures, point, tap.
+VoiceOS is a voice assistant plus a phone-first OS, rebuilt around what people with broken speech can still do: say fragments, recognise faces and pictures, point, tap.
 - **Talk.** Say the fragments. VoiceOS combines what it heard, what you're pointing at, your Memory Book, today's routine and the date, then offers **3 full sentences** with a short "because". Tap one and it speaks **in your own cloned voice**, and can act on it (call Ellie).
 - **Read the world.** Hold up a bill or a letter. The camera turns it into one short line: "Electric bill. $84.20. Due Nov 20."
 - **Calls & messages by face.** No contact lists. Family picture messages arrive already simplified.

@@ -29,29 +29,40 @@ export default function Landing() {
       </nav>
 
       <header className="lp-hero">
-        <p className="sp-kicker">An operating system for people living with aphasia</p>
-        <h1>The words are still there.<br /><em>We built everything else around that.</em></h1>
+        <p className="sp-kicker">Elevating the voice assistant</p>
+        <h1>Voice assistants fail the people<br /><em>who need them most.</em></h1>
         <p className="lp-sub">
-          After a stroke, someone can understand everything and know exactly what they mean, and still not be able to say it.
-          Phones, bills, menus and messages all assume words. VoiceOS rebuilds them around what they can still do:
-          faces, pictures, pointing and tapping.
+          Siri, Alexa and Google Assistant are built into almost every phone and speaker. But say a sentence the way a stroke
+          survivor with aphasia says it, and the answer is “Sorry, I didn’t get that.” VoiceOS is the assistant rebuilt for them:
+          it understands <i>meaning</i> from broken speech, answers in <i>your own voice</i>, and acts.
         </p>
-        <div className="os-glass lp-demo">
-          <p className="lp-frag">water… no… Ellie… phone… birthday</p>
-          <div className="lp-arrow">↓</div>
-          <p className="lp-chosen">“Call Ellie and wish her a happy birthday. Tell her I love her.”</p>
-          <p className="lp-tag">🔊 in his own voice · 📞 calling Ellie…</p>
+        <div className="lp-vs">
+          <div className="os-glass lp-side bad">
+            <small>Today’s voice assistant</small>
+            <p className="lp-frag">“Hey Siri… call… uh… Ellie… no… phone…”</p>
+            <p className="lp-reply">Sorry, I didn’t get that.</p>
+          </div>
+          <div className="os-glass lp-side good">
+            <small>VoiceOS</small>
+            <p className="lp-frag">“call… uh… Ellie… no… phone… birthday”</p>
+            <p className="lp-chosen">“Call Ellie and wish her a happy birthday.”</p>
+            <p className="lp-tag">🔊 in his own voice · 📞 calling Ellie…</p>
+          </div>
         </div>
       </header>
 
       <section className="lp-story">
-        <h2>Fully present. Trapped without words.</h2>
+        <h2>The flaw: assistants match words. People mean things.</h2>
         <p>
-          Aphasia affects language, not intelligence. The person at the dinner table still has opinions, jokes and love to give,
-          but the conversation moves on without them. Family starts answering for them. A phone call, a bill or a text from a
-          grandchild turns into a wall.
+          Voice assistants expect clean, complete commands. Many people can’t give them: stroke survivors with aphasia,
+          people with dysarthria from Parkinson’s or ALS, people who stutter, many older adults. They are fully present,
+          they know exactly what they mean, and the assistant on their phone still doesn’t understand them.
         </p>
-        <p>Picture boards and AAC apps help, but they make you build every sentence from scratch, one icon at a time. VoiceOS starts from what you already said.</p>
+        <p>
+          VoiceOS keeps the voice assistant and changes what it listens for. It takes the fragments, what you point at,
+          who is in your life and what day it is, and offers three full sentences. You tap one, and it is said in your own
+          cloned voice. Then it makes the call, sends the text, reads the letter.
+        </p>
       </section>
 
       <section className="lp-stats">
@@ -74,7 +85,7 @@ export default function Landing() {
       </section>
 
       <section className="os-glass lp-how">
-        <h2>How it understands</h2>
+        <h2>What we elevated</h2>
         <ol>
           <li><b>Hears the fragments.</b> Speech recognition that keeps the broken words and pauses.</li>
           <li><b>Sees what you point at.</b> Hand and object detection runs in the browser, and only labels leave the device.</li>
