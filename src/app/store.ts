@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { PersonContext } from '../contracts';
 
-const KEY = 'voice.context.v1';
+import { FRANK_CONTEXT } from './os/persona';
+
+const KEY = 'voiceos.context.v1';
 
 export const demoContext: PersonContext = {
   name: 'Walter',
@@ -24,7 +26,7 @@ export function usePersonContext() {
       const raw = localStorage.getItem(KEY);
       if (raw) return JSON.parse(raw) as PersonContext;
     } catch { /* ignore */ }
-    return demoContext;
+    return FRANK_CONTEXT;
   });
   useEffect(() => {
     try { localStorage.setItem(KEY, JSON.stringify(ctx)); } catch { /* ignore */ }

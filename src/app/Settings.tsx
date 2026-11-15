@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { PersonContext } from '../contracts';
-import { demoContext } from './store';
+import { FRANK_CONTEXT as demoContext } from './os/persona';
 
 export function Settings({ ctx, setCtx, onClose }: { ctx: PersonContext; setCtx: (c: PersonContext) => void; onClose: () => void }) {
   const [d, setD] = useState<PersonContext>(ctx);

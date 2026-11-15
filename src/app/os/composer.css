@@ -1,0 +1,35 @@
+.cp{display:flex;flex-direction:column;gap:14px}
+.cp-heard{padding:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:84px;border-radius:26px}
+.cp-frag{font-size:24px;font-weight:700;padding:6px 14px;border-radius:14px;background:rgba(255,255,255,.14);animation:os-rise .4s both}
+.cp-hint{font-size:20px;color:var(--os-ink-3)}
+.cp-eq{display:flex;gap:3px;margin-left:auto;height:24px;align-items:center}
+.cp-eq i,.cp-wave i{width:4px;height:8px;border-radius:2px;background:var(--os-pink);animation:cp-w .8s ease-in-out infinite}
+.cp-eq i:nth-child(2),.cp-wave i:nth-child(2){animation-delay:.12s}.cp-eq i:nth-child(3),.cp-wave i:nth-child(3){animation-delay:.24s}.cp-eq i:nth-child(4),.cp-wave i:nth-child(4){animation-delay:.36s}.cp-wave i:nth-child(5){animation-delay:.48s}
+@keyframes cp-w{50%{height:24px}}
+.cp-cards{display:flex;flex-direction:column;gap:12px}
+.cp-card{position:relative;text-align:left;color:#fff;font:inherit;cursor:pointer;padding:20px 20px 16px 66px;display:flex;flex-direction:column;gap:8px;min-height:104px;border-radius:26px;animation:os-rise .5s var(--os-ease) both;transition:transform .15s}
+.cp-card:active{transform:scale(.97)}
+.cp-card.best{border-color:rgba(190,170,255,.75);box-shadow:0 0 0 1px rgba(160,140,255,.45),0 16px 50px rgba(124,92,255,.5),inset 0 1px 0 rgba(255,255,255,.3)}
+.cp-num{position:absolute;left:18px;top:20px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:rgba(255,255,255,.18)}
+.cp-card.best .cp-num{background:var(--os-grad)}
+.cp-text{font-size:23px;line-height:1.25;font-weight:700}
+.cp-because{font-size:14px;color:var(--os-ink-2)}
+.cp-card.skel{background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.16),rgba(255,255,255,.05));background-size:200% 100%;animation:cp-shim 1.2s linear infinite}
+@keyframes cp-shim{to{background-position:-200% 0}}
+.cp-meta{display:flex;align-items:center;justify-content:space-between}
+.cp-spoken{display:flex;gap:14px;align-items:center;padding:20px;font-size:23px;font-weight:700;line-height:1.3;border-radius:26px}
+.cp-wave{display:flex;gap:3px;height:28px;align-items:center;flex:none}
+.cp-wave i{background:var(--os-cyan);animation-play-state:paused}
+.cp-spoken.live .cp-wave i{animation-play-state:running}
+.cp-quick{display:flex;flex-wrap:wrap;gap:8px}
+.cp-controls{display:flex;align-items:center;gap:12px;margin-top:4px}
+.cp-type{flex:1;display:flex;align-items:center;padding:4px 8px 4px 18px;border-radius:999px}
+.cp-type input{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;font-size:18px;padding:14px 0;font-family:inherit}
+.cp-go{width:44px;height:44px;border-radius:50%;border:none;background:var(--os-grad);color:#fff;font-size:20px;cursor:pointer}
+.cp-mic{width:84px;height:84px;flex:none;border-radius:50%;border:none;color:#fff;cursor:pointer;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#c4baff,#6d4dff 55%,#3417c9);box-shadow:0 0 36px rgba(124,92,255,.7),inset 0 2px 6px rgba(255,255,255,.5);transition:transform .15s}
+.cp-mic:active{transform:scale(.94)}
+.cp-mic.listening{background:radial-gradient(circle at 30% 25%,#ffc0d8,#ff4d8d 55%,#c3135a);box-shadow:0 0 56px rgba(255,77,141,.85);animation:cp-pulse 1.4s ease-in-out infinite}
+@keyframes cp-pulse{50%{box-shadow:0 0 80px rgba(255,77,141,1)}}
+.cp-mic:disabled{opacity:.6}
+.cp-label{text-align:center;font-size:17px;font-weight:700;color:var(--os-ink-2)}
+.cp.compact .cp-heard{min-height:64px}

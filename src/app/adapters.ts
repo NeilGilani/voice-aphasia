@@ -6,6 +6,8 @@ import type {
   Candidate, SeenObject, UnderstandRequest, UnderstandResponse, VoiceEngine,
 } from '../contracts';
 
+import { createVoiceEngine } from '../voice';
+
 const uid = () => Math.random().toString(36).slice(2, 10);
 
 /** Understand: POST /api/understand (ws/understand server), else heuristic mock. */
@@ -28,8 +30,24 @@ export async function understand(req: UnderstandRequest): Promise<UnderstandResp
   return { candidates: mockUnderstand(req), source: 'mock' };
 }
 
-export function mockUnderstand({ utterance, context }: UnderstandRequest): Candidate[] {
+export function mockUnderstand({ utterance, context, recent }: UnderstandRequest): Candidate[] {
   const t = utterance.transcript.toLowerCase();
+  const said = recent.map((r) => r.text.toLowerCase()).join(' ');
+  if (/bill|money|pay|electric|light/.test(t)) {
+    const ellie = context.people.find((p) => p.name === 'Ellie');
+    return [
+      { id: uid(), text: 'Can you help me pay the electric bill? It is $84, due Friday.', action: { type: 'none' }, confidence: 0.82, because: 'You said bill + money; PG&E $84.20 due Fri' },
+      { id: uid(), text: 'I got a bill and I don\'t understand it. Can you look at it?', action: { type: 'none' }, confidence: 0.55, because: 'You just read a bill' },
+      { id: uid(), text: 'Call Ellie about the bill.', action: ellie?.phone ? { type: 'call', to: ellie.phone } : { type: 'none' }, confidence: 0.3, because: 'Ellie helps with paperwork' },
+    ];
+  }
+  if (/birthday|cake/.test(said) && /(love|happy|proud|good)/.test(t)) {
+    return [
+      { id: uid(), text: 'Happy birthday, sweetheart. I love you. I am so proud of you.', action: { type: 'none' }, confidence: 0.84, because: "Ellie's birthday is today" },
+      { id: uid(), text: 'Good luck on your exam. Call me after.', action: { type: 'none' }, confidence: 0.5, because: 'She has an exam tonight' },
+      { id: uid(), text: 'I love you too.', action: { type: 'none' }, confidence: 0.4, because: 'She said she loves you' },
+    ];
+  }
   const person = context.people.find((p) => t.includes(p.name.toLowerCase()));
   const seen = utterance.seen?.find((s) => s.pointedAt)?.label;
   const out: Candidate[] = [];
@@ -62,7 +80,11 @@ export function mockUnderstand({ utterance, context }: UnderstandRequest): Candi
   return out.slice(0, 3);
 }
 
-/** Voice: device speechSynthesis. ws/voice replaces this with the cloned voice. */
+/** Voice: cloned voice from ws/voice with labelled device fallback. */
+export function getVoice(): VoiceEngine {
+  try { return createVoiceEngine(); } catch { return deviceVoice; }
+}
+
 export const deviceVoice: VoiceEngine = {
   label: 'Device voice',
   async ready() { return 'speechSynthesis' in window; },

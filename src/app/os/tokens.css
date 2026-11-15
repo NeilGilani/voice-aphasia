@@ -1,0 +1,88 @@
+/* VoiceOS design tokens + shared glass components. Other workstreams: use these classes/vars. */
+:root{
+  --os-bg:#070814; --os-ink:#fff; --os-ink-2:rgba(255,255,255,.72); --os-ink-3:rgba(255,255,255,.5);
+  --os-glass:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.05));
+  --os-glass-border:rgba(255,255,255,.22); --os-blur:blur(24px) saturate(170%);
+  --os-shadow:0 18px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.28);
+  --os-r-lg:30px; --os-r-md:22px; --os-r-sm:14px;
+  --os-violet:#8b7bff; --os-cyan:#38d0ff; --os-pink:#ff5c9a; --os-amber:#ffc95c; --os-green:#3ee6a0; --os-red:#ff4d5e;
+  --os-grad:linear-gradient(135deg,var(--os-violet),var(--os-cyan));
+  --os-ease:cubic-bezier(.2,.8,.2,1);
+  --os-tap:72px;
+}
+.os-glass{background:var(--os-glass);border:1px solid var(--os-glass-border);backdrop-filter:var(--os-blur);-webkit-backdrop-filter:var(--os-blur);box-shadow:var(--os-shadow);border-radius:var(--os-r-lg)}
+.os-root{position:fixed;inset:0;display:flex;justify-content:center;background:var(--os-bg);color:var(--os-ink);overflow:clip}
+.os-device{position:relative;width:100%;max-width:520px;height:100%;display:flex;flex-direction:column;isolation:isolate;overflow:clip}
+.os-wall{position:absolute;inset:-25%;z-index:-1;filter:blur(40px);animation:os-drift 26s ease-in-out infinite alternate;background:
+  radial-gradient(38% 30% at 18% 12%,rgba(124,92,255,.62),transparent 70%),
+  radial-gradient(34% 28% at 88% 28%,rgba(0,190,255,.42),transparent 70%),
+  radial-gradient(40% 36% at 30% 78%,rgba(255,92,154,.32),transparent 70%),
+  radial-gradient(30% 30% at 85% 90%,rgba(62,230,160,.22),transparent 70%)}
+@keyframes os-drift{to{transform:translate3d(4%,-3%,0) rotate(8deg) scale(1.08)}}
+/* status bar */
+.os-status{display:flex;align-items:center;gap:10px;padding:12px 20px 6px;font-weight:700;font-size:15px;z-index:3}
+.os-status .sp{flex:1}
+.os-online{display:flex;align-items:center}
+.os-online .os-avatar{width:26px;height:26px;font-size:12px;margin-left:-8px;border:2px solid var(--os-bg)}
+.os-online .dot{width:8px;height:8px;border-radius:50%;background:var(--os-green);box-shadow:0 0 8px var(--os-green);margin-left:6px}
+.os-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14)}
+/* screen stack */
+.os-stage{position:relative;flex:1;min-height:0}
+.os-screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:8px 16px 150px;animation:os-in .42s var(--os-ease) both;-webkit-overflow-scrolling:touch}
+.os-screen.back{animation-name:os-in-back}
+@keyframes os-in{from{opacity:0;transform:translateX(28px) scale(.985)}}
+@keyframes os-in-back{from{opacity:0;transform:translateX(-28px) scale(.985)}}
+.os-screen.home{animation-name:os-zoom}
+@keyframes os-zoom{from{opacity:0;transform:scale(1.04)}}
+.os-head{display:flex;align-items:center;gap:14px;margin:6px 0 18px}
+.os-head .ico{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:30px;box-shadow:0 8px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+.os-head h1{margin:0;font-size:32px;letter-spacing:-.02em}
+.os-head p{margin:2px 0 0;color:var(--os-ink-2);font-size:15px}
+.os-kicker{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--os-ink-3);margin:22px 4px 10px}
+/* dock */
+.os-dock{position:absolute;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-radius:40px;z-index:5}
+.os-dock-btn{width:var(--os-tap);height:var(--os-tap);border-radius:24px;border:none;background:rgba(255,255,255,.08);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:28px;cursor:pointer;transition:transform .15s,background .2s}
+.os-dock-btn small{font-size:12px;font-weight:700;color:var(--os-ink-2)}
+.os-dock-btn:active{transform:scale(.92)}
+.os-dock-btn:disabled{opacity:.35}
+.os-talk-fab{position:relative;width:96px;height:96px;margin-top:-44px;border-radius:50%;border:4px solid rgba(255,255,255,.18);color:#fff;cursor:pointer;display:grid;place-items:center;
+  background:radial-gradient(circle at 30% 25%,#c4baff,#6d4dff 55%,#3417c9);box-shadow:0 0 44px rgba(124,92,255,.75),inset 0 2px 8px rgba(255,255,255,.55);transition:transform .15s}
+.os-talk-fab:active{transform:scale(.94)}
+.os-talk-fab.hot{background:radial-gradient(circle at 30% 25%,#ffc0d8,#ff4d8d 55%,#c3135a);box-shadow:0 0 60px rgba(255,77,141,.85)}
+.os-talk-fab::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(255,255,255,.4);animation:os-ring 3s ease-out infinite}
+@keyframes os-ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+/* avatars */
+.os-avatar{position:relative;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;overflow:hidden;background-size:cover;background-position:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 6px 18px rgba(0,0,0,.35)}
+.os-avatar .em{position:absolute;right:-2px;bottom:-2px;font-size:.42em}
+/* tiles */
+.os-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.os-grid.g3{grid-template-columns:repeat(3,1fr)}
+.os-grid.g4{grid-template-columns:repeat(4,1fr)}
+.os-tile{position:relative;border:none;color:#fff;text-align:left;font:inherit;cursor:pointer;padding:16px;min-height:var(--os-tap);transition:transform .15s var(--os-ease),box-shadow .2s;animation:os-rise .5s var(--os-ease) both}
+.os-tile:active{transform:scale(.96)}
+@keyframes os-rise{from{opacity:0;transform:translateY(16px)}}
+.os-app{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;color:#fff;font:inherit;cursor:pointer;animation:os-rise .5s var(--os-ease) both}
+.os-app .ico{width:68px;height:68px;border-radius:22px;display:grid;place-items:center;font-size:34px;box-shadow:0 10px 24px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -6px 14px rgba(0,0,0,.18);transition:transform .15s}
+.os-app:active .ico{transform:scale(.9)}
+.os-app span{font-size:13px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.os-badge{position:absolute;top:-6px;right:-6px;min-width:24px;height:24px;border-radius:12px;background:var(--os-red);font-size:13px;font-weight:800;display:grid;place-items:center;padding:0 6px;box-shadow:0 0 12px rgba(255,77,94,.7)}
+/* buttons */
+.os-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:var(--os-tap);padding:0 24px;border-radius:var(--os-r-md);border:1px solid var(--os-glass-border);background:var(--os-glass);color:#fff;font:inherit;font-size:20px;font-weight:700;cursor:pointer;backdrop-filter:var(--os-blur);transition:transform .15s}
+.os-btn:active{transform:scale(.96)}
+.os-btn.primary{background:var(--os-grad);border-color:transparent;box-shadow:0 10px 30px rgba(124,92,255,.45)}
+.os-btn.green{background:linear-gradient(135deg,#2fd98c,#18b06f);border-color:transparent;box-shadow:0 10px 30px rgba(46,217,140,.4)}
+.os-btn.red{background:linear-gradient(135deg,#ff5d6c,#d81e3a);border-color:transparent;box-shadow:0 10px 30px rgba(255,77,94,.45)}
+.os-btn.block{width:100%}
+.os-btn .big{font-size:28px}
+/* toasts */
+.os-toasts{position:absolute;top:44px;left:12px;right:12px;z-index:20;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.os-toast{pointer-events:auto;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:24px;cursor:pointer;animation:os-drop .5s var(--os-ease) both;background:rgba(40,34,80,.72)}
+.os-toast b{display:block;font-size:15px}.os-toast span{font-size:15px;color:var(--os-ink-2)}
+@keyframes os-drop{from{opacity:0;transform:translateY(-30px) scale(.96)}}
+/* lines (simple sentence + icon) */
+.os-line{display:flex;align-items:center;gap:14px;padding:14px 16px;font-size:22px;font-weight:600;line-height:1.25;animation:os-rise .5s var(--os-ease) both}
+.os-line .em{font-size:34px;flex:none;width:48px;text-align:center}
+.os-chip{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);font-size:18px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit}
+.settings-inline .v-sheet-bg{position:static;background:none;animation:none;display:block}
+.settings-inline .v-sheet{max-height:none;border-radius:var(--os-r-lg);margin-top:16px}
+.family-embed{border-radius:var(--os-r-lg);overflow:hidden}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import VoiceOS from './app/VoiceOS';
 import { PatientApp } from './app/PatientApp';
 import { Family, Landing } from './pages';
 
@@ -12,6 +13,7 @@ export default function App() {
     return () => window.removeEventListener('hashchange', on);
   }, []);
   if (r === 'family') return <Family />;
-  if (r === 'app') return <PatientApp />;
-  return <Landing />;
+  if (r === 'landing') return <Landing />;
+  if (r === 'classic') return <PatientApp />;
+  return <VoiceOS />;
 }
