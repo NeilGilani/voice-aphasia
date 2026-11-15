@@ -1,0 +1,64 @@
+✓ 9640ms  "water… no… Ellie… phone… birthday"  [Call Ellie for her birthday] -> I want to call Ellie. Happy birthday, sweetheart!
+✓ 8707ms  "the… the hot… black… cup"  [I want coffee] -> I'd like a hot cup of coffee, black, please.
+✓ 9881ms  "pills… pills… um… eight"  [Time for / did I take my morning pills] -> It's eight o'clock. Is it time for my pills?
+✓ 8711ms  "bathroom… need… now"  [I need the bathroom] -> I need the bathroom now, please.
+✓ 8948ms  "Giants… tonight… on… the box"  [Turn on the Giants game on TV] -> Is the Giants game on the TV tonight?
+✓ 10235ms  "cold… blanket… no… the… window"  [Close the window, it is cold] -> I'm cold. Could you close the window, please?
+✓ 10759ms  "Maria… where… Maria"  [Where is Maria?] -> Where is Maria? I want to see her.
+✓ 12124ms  "David… text… late"  [Text David / I will be late] -> David, can you text me later?
+✓ 13822ms  "hurts… here… arm… right"  [My right arm hurts] -> My right arm hurts here.
+✓ 10114ms  "Biscuit… out… walk"  [Take Biscuit out for a walk] -> I want to take Biscuit out for a walk.
+✓ 8937ms  "yes… no… no… yes"  [Yes] -> Yes, let's have lunch now.
+✓ 12388ms  "fork… the… fork… write"  [I need a pen to write] -> Ellie's birthday is today. I want to write her a card.
+~ 9191ms  "tephone… tephone"  [Give me the telephone] -> I want to call Ellie. Happy birthday, sweetheart!
+✓ 9356ms  "tired… bed… sleep"  [I am tired, I want to go to bed] -> I'm tired. I'd like to go to bed and sleep for a while.
+✓ 9411ms  "thank… thank… you… good"  [Thank you] -> Happy birthday, Ellie. Thank you for today. I love you.
+✓ 9481ms  "love… Ellie… tell"  [Tell Ellie I love her] -> Ellie, I love you. Happy birthday!
+✓ 7999ms  "garden… three… outside"  [Go for my walk in the garden] -> I'd like to go outside into the garden now, for my walk.
+✓ 10038ms  "eat… hungry… sandwich… no… soup"  [I am hungry, I want soup] -> I'm hungry. I'd like soup, not a sandwich.
+✓ 8883ms  "glasses… where… can't… see"  [Where are my glasses?] -> Where are my glasses? I can't see.
+✓ 9050ms  "doctor… Patel… tomorrow… no"  [Is Dr. Patel coming / call Dr. Patel] -> Dr. Patel, I can't do tomorrow. Could we move my appointment to another day?
+✓ 8617ms  "hot… too… hot… the… the… wind thing"  [It is too hot, turn on the fan] -> It's too hot in here. Can you turn on the fan?
+✓ 7851ms  "remote… no… the… the… book"  [Hand me my book] -> Could you hand me my book, please?
+~ 11774ms  "water"  [I would like some water] -> Could I have a cup of coffee, please? Black, like always.
+✓ 10312ms  "that… that one… give"  [Hand me the remote] -> Could you give me that remote, please?
+✓ 9927ms  "slow… slow… down… please"  [Please speak more slowly] -> Please slow down. I'm having trouble keeping up with you.
+✓ 9550ms  "car… keys… no… David… drive"  [David, can you drive me?] -> David, can you drive? I don't want to drive today.
+✓ 12048ms  "scared… head… again"  [I am scared it is happening again (stroke)] -> I'm scared. My head hurts again. Can you come over?
+✓ 9625ms  "happy… birthday… song… Ellie"  [Let's sing happy birthday to Ellie] -> I want to call Ellie and sing her happy birthday.
+✓ 9248ms  "game… who… win… score"  [Who won the game / what is the score?] -> Who won the game last night? What was the score?
+✓ 8757ms  "no… not… that… the… other… blue"  [Not that one, the blue one] -> No, not that one. I want the other blue sweater, please.
+
+model=haiku n=30 top1=28/30 top3=30/30 latency median=9550ms p90=12124ms
+✓ 8717ms  "water… no… Ellie… phone… birthday"  [Call Ellie for her birthday] -> I want to call Ellie. It's her birthday today.
+✓ 8216ms  "the… the hot… black… cup"  [I want coffee] -> I'd like a cup of hot black coffee, please.
+✓ 7255ms  "pills… pills… um… eight"  [Time for / did I take my morning pills] -> It's eight o'clock. I need to take my morning pills.
+✓ 9534ms  "bathroom… need… now"  [I need the bathroom] -> I need to use the bathroom right now.
+✓ 8820ms  "Giants… tonight… on… the box"  [Turn on the Giants game on TV] -> I want to watch the Giants game on TV tonight.
+~ 7759ms  "cold… blanket… no… the… window"  [Close the window, it is cold] -> I'm cold. Could you bring me a blanket?
+✓ 8106ms  "Maria… where… Maria"  [Where is Maria?] -> Where is Maria? I'd like to see her.
+✓ 9855ms  "David… text… late"  [Text David / I will be late] -> David, I'm running late. I'll be there soon.
+✓ 10776ms  "hurts… here… arm… right"  [My right arm hurts] -> My right arm hurts right here. I need help.
+✓ 7286ms  "Biscuit… out… walk"  [Take Biscuit out for a walk] -> I want to take Biscuit out for a walk.
+✓ 8991ms  "yes… no… no… yes"  [Yes] -> Yes, I'd like lunch now, please.
+✓ 9404ms  "fork… the… fork… write"  [I need a pen to write] -> I want to use this pen to write something.
+~ 6408ms  "tephone… tephone"  [Give me the telephone] -> I want to call Ellie. It's her birthday today.
+✓ 6465ms  "tired… bed… sleep"  [I am tired, I want to go to bed] -> I'm very tired. I need to go lie down and sleep for a bit.
+✓ 8054ms  "thank… thank… you… good"  [Thank you] -> Thank you, that's good.
+✓ 6983ms  "love… Ellie… tell"  [Tell Ellie I love her] -> Tell Ellie happy birthday. I love her very much.
+✓ 7357ms  "garden… three… outside"  [Go for my walk in the garden] -> It's three o'clock. I want to go outside for my walk in the garden.
+✓ 8284ms  "eat… hungry… sandwich… no… soup"  [I am hungry, I want soup] -> I'm hungry. I'd like some soup, please.
+✓ 7694ms  "glasses… where… can't… see"  [Where are my glasses?] -> I can't find my glasses. Can you help me look for them?
+✓ 12735ms  "doctor… Patel… tomorrow… no"  [Is Dr. Patel coming / call Dr. Patel] -> I can't make my appointment with Dr. Patel tomorrow. Can we change it?
+✓ 8643ms  "hot… too… hot… the… the… wind thing"  [It is too hot, turn on the fan] -> I'm too hot. Could you turn on the fan, please?
+✓ 6780ms  "remote… no… the… the… book"  [Hand me my book] -> I want my book, please. Can you hand it to me?
+~ 6108ms  "water"  [I would like some water] -> I'd like some coffee, please.
+✓ 6534ms  "that… that one… give"  [Hand me the remote] -> Please give me the remote.
+✓ 7739ms  "slow… slow… down… please"  [Please speak more slowly] -> Please slow down. I need you to speak more slowly so I can understand.
+✓ 10109ms  "car… keys… no… David… drive"  [David, can you drive me?] -> David, can you drive me? I need to go somewhere.
+✓ 10974ms  "scared… head… again"  [I am scared it is happening again (stroke)] -> I'm scared. My head hurts, like before. Maria, I need help.
+✓ 8399ms  "happy… birthday… song… Ellie"  [Let's sing happy birthday to Ellie] -> I want to call Ellie and sing happy birthday to her.
+✓ 8506ms  "game… who… win… score"  [Who won the game / what is the score?] -> Who won the Giants game last night? What was the score?
+✓ 6458ms  "no… not… that… the… other… blue"  [Not that one, the blue one] -> No, not the red one. I want the blue sweater, please.
+
+model=sonnet n=30 top1=27/30 top3=30/30 latency median=8216ms p90=10776ms
