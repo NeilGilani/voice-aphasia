@@ -18,6 +18,10 @@ node server/read.ts
 ```bash
 ~/voice-ext/f5env/bin/python server/voice_server.py
 ```
+   Optional natural fallback voice (Kokoro, port 8792, used when there is no clone yet):
+```bash
+~/voice-ext/mlxaudio/bin/python server/voice_kokoro.py
+```
 4. The app (Vite proxies /api/read → 8788, /api/voice → 8790, /api → 8787):
 ```bash
 npm run dev
