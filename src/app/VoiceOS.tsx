@@ -5,13 +5,19 @@ import Home from './screens/Home';
 import Talk from './screens/Talk';
 import Read from './screens/Read';
 import { Call, Person, Phone } from './screens/People';
-import { Messages, Thread } from './screens/Messages';
+import { Thread } from './screens/Messages';
+import { Messages as InboxScreen } from '../messages';
 import { Emergency, MemoryDetail, Money } from './screens/Life';
 import { FamilyBridge, MemoryBook, MyDay, Practice, Progress } from '../pages';
 import { AboutMe } from './screens/System';
 import { MESSAGES } from './os/persona';
 
 const unread = () => MESSAGES.filter((m) => !m.read).length;
+
+function Messages() {
+  const os = useOS();
+  return <InboxScreen voice={os.voice} onBack={os.back} />;
+}
 
 registerApp({ id: 'home', name: 'Home', emoji: '⌂', hue: 250, component: Home, hidden: true });
 registerApp({ id: 'talk', name: 'Talk', emoji: '🗣️', hue: 255, component: Talk });
