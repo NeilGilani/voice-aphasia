@@ -194,6 +194,21 @@ def prepare(req: PrepareReq):
     return {"ok": True}
 
 
+# ---- preset voice (Kokoro sidecar, server/voice_kokoro.py) ----------------------
+KOKORO = os.environ.get("KOKORO_URL", "http://127.0.0.1:8792")
+
+
+@app.post("/api/voice/preset/speak")
+def preset_speak(req: SpeakReq):
+    import urllib.request
+    try:
+        r = urllib.request.urlopen(urllib.request.Request(f"{KOKORO}/speak", data=json.dumps({"text": req.text}).encode(),
+                                   headers={"content-type": "application/json"}), timeout=20)
+        return Response(r.read(), media_type="audio/wav")
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(503, f"preset voice unavailable: {e}")
+
+
 # ---- call relay ---------------------------------------------------------------
 rooms: dict[str, list[asyncio.Queue]] = {}
 history: dict[str, list[dict]] = {}
