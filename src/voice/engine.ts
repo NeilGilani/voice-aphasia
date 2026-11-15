@@ -70,7 +70,7 @@ export interface ClonedVoiceOptions {
 export class ClonedVoiceEngine implements VoiceEngine {
   label = 'Device voice (backup)';
   /** Which voice the last `speak` actually used. */
-  lastUsed: 'clone' | 'device' = 'device';
+  lastUsed: 'clone' | 'preset' | 'device' = 'device';
   private status: VoiceStatus = { ready: false, cloned: false };
   private cache = new Map<string, Promise<Blob>>();
   private device = new DeviceVoiceEngine();
@@ -85,7 +85,7 @@ export class ClonedVoiceEngine implements VoiceEngine {
     this.status = await getVoiceStatus();
     this.label = this.status.cloned
       ? `${this.status.name ?? 'Your'} voice`
-      : 'Device voice (no voice sample yet)';
+      : this.status.ready ? 'Natural voice (not cloned yet)' : 'Device voice (no voice sample yet)';
     if (!this.status.cloned) return this.device.ready();
     return true;
   }
@@ -135,6 +135,19 @@ export class ClonedVoiceEngine implements VoiceEngine {
         this.cache.delete(key(text));
         this.opts.onFallback?.(`Their voice wasn't ready (${(e as Error).message}); used device voice.`);
       }
+    }
+    // Natural preset voice (Kokoro sidecar): instant, human-sounding, but not theirs.
+    if (this.status.ready) {
+      try {
+        const r = await withTimeout(fetch(`${VOICE_API}/preset/speak`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }),
+        }), 4000);
+        if (r.ok) {
+          await this.play(await r.blob());
+          this.lastUsed = 'preset';
+          return;
+        }
+      } catch { /* fall through to the browser voice */ }
     }
     this.lastUsed = 'device';
     await this.device.speak(text);
