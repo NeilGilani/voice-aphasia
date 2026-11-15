@@ -2,10 +2,8 @@
 
 > **(0–10s)** Imagine knowing exactly what you want to say to your granddaughter on her birthday, and all that comes out is "water… no… Ellie… phone… birthday."
 
-> **(10–20s)** That's aphasia. Usually after a stroke. About two million Americans live with it. They understand everything, they're fully present, and they're trapped without words.
+> **(10–20s)** That's aphasia, usually after a stroke. About two million Americans live with it. They're fully present, but every part of daily life assumes words: phone calls, bills, texts.
 
-> **(20–40s)** *[Live demo]* Voice listens to the fragments, sees he's holding his phone, knows Ellie is his granddaughter and today is her birthday, and offers three full sentences. He taps one, and *[play]* it speaks in **his own voice**, cloned from an old voicemail. And it calls her.
+> **(20–45s)** *[Live]* So we built **VoiceOS**. He holds up a bill: "Electric bill, $84, due Thursday." He taps pay, and his wife confirms from her phone. Then he says the fragments. VoiceOS sees he's holding the phone, knows Ellie and that today is her birthday, and offers three full sentences. He taps one and *[play]* it speaks in **his own voice** and calls her. Afterwards: "Want to try saying *Ellie*?" Every conversation becomes therapy.
 
-> **(40–50s)** It works the other way too. Family mode turns what the family says into short sentences with pictures.
-
-> **(50–60s)** Existing AAC apps make you build every sentence one icon at a time. Voice starts from what you already said. Elevate the ordinary: a birthday call. We're Voice. Thank you.
+> **(45–60s)** AAC apps make you build sentences icon by icon. VoiceOS starts from what you already said, in your own voice, across your whole day. Elevate the ordinary. We're VoiceOS. Thank you.

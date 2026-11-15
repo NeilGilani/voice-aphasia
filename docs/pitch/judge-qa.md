@@ -1,34 +1,42 @@
-# Judge Q&A prep
+# Judge Q&A prep (VoiceOS)
 
 **Doesn't this already exist?**
-Partly, and we respect that work. AAC apps like **Proloquo2Go** (AssistiveWare) and **Lingraphica**'s devices and apps are proven
-tools. They're symbol- and phrase-board based: the user navigates categories and builds a message icon by icon, or picks
-pre-stored phrases. That works, but it's slow, and it asks someone with a language disorder to do a lot of language work.
-Voice is different in three ways: (1) it **starts from the fragments the person already says** plus what they point at, instead of an empty board;
-(2) it uses **personal context and time** (who Ellie is, that today is her birthday) to compose full sentences; (3) it speaks in
-**their own cloned voice**. Honestly, AAC apps are mature, clinically used and work offline. We're a prototype, and we could see Voice
-living alongside them rather than replacing them. Voice banking exists too (e.g. Apple Personal Voice), but it isn't connected to fragment understanding.
+Parts of it do, and we respect that work. **Proloquo2Go** (AssistiveWare) and **Lingraphica**'s apps and devices are proven AAC tools.
+They're symbol- and phrase-board based: you navigate categories and build a message icon by icon, or pick a stored phrase.
+**Apple Personal Voice** can bank a voice. Speech-therapy apps offer drills. What's different about VoiceOS:
+1. It **starts from the fragments you already say**, plus what you point at, not from an empty board.
+2. It uses **your life and the moment** (Memory Book, routine, date, past choices) to compose whole sentences.
+3. It speaks in **your own cloned voice** and can act on the sentence (call, text).
+4. It's a whole **daily-life OS**: reading bills, money with family confirmation, routines, and therapy woven into real conversations instead of separate drills.
+
+To be honest about the other side: AAC apps are mature, clinically used, work offline and are insurance-reimbursable. We're a prototype. VoiceOS could sit alongside them.
 
 **What if it guesses wrong?**
-It never speaks without a choice. There are three options, each with a "because", and "none of these" lets the person try again. Choices teach it.
+It never speaks without a choice. You get three options, each with a "because", and you can say "none of these" and try again. Choices teach it.
 
 **Isn't putting words in someone's mouth risky?**
-That's the core design tension. The person is always the author: they pick, and nothing auto-sends. We'd want SLPs to define guardrails before real use.
+That's the core design tension. The person is always the author: they pick, and nothing auto-speaks, auto-sends or auto-pays. We'd want SLPs to set guardrails before real use.
 
 **How accurate is it?**
-We have a small eval set of 30 aphasia-style utterances we wrote ourselves; we'll show the pass rate we measured. That isn't clinical validation and we won't claim it is.
+On our own 30-case eval set: Sonnet top-1 27/30, top-3 30/30; Haiku top-1 28/30, top-3 30/30. We wrote the cases and the keyword matching is lenient, so these are smoke-test numbers, not clinical accuracy.
+
+**How fast?**
+About 7–9 s end to end right now. Roughly 3 s of that is CLI startup, and calling the API directly removes it. The UI shows a thinking state. Voice synthesis targets under 2 s.
+
+**Money? That sounds dangerous.**
+VoiceOS never moves money. The person chooses to pay, a family helper confirms in the Family bridge, and in this prototype that only records the decision. There's no bank integration.
 
 **Privacy?**
-Vision runs in the browser and only object labels are sent. The Claude API key stays server-side. Next step: on-device models and local-only context storage.
+Vision runs in the browser and only object labels are sent. The Memory Book and practice data are stored locally. The API key stays server-side.
 
-**Latency?**
-Target: under 2 s for voice. Sonnet is the faster fallback for understanding.
+**Is Practice real therapy?**
+It's practice support, not treatment. It uses a standard cueing ladder (independent → first-sound cue → model) and logs attempts. A speech-language pathologist can review and export them. We make no clinical claims.
 
-**Who pays / who's the user?**
-People with aphasia and their families, plus speech-language pathologists who could configure context. Possible paths: clinics and rehab programs, insurance-covered AAC channels.
+**Who pays?**
+Families directly; clinics and rehab programs that want carry-over between sessions; longer term, AAC reimbursement channels.
 
 **Technical difficulty?**
-Fragment-tolerant STT, multimodal context (speech + vision + personal memory + time), LLM ranking with actions, voice cloning, all in a real-time, phone-first UI, built by five parallel workstreams against shared typed contracts.
+Fragment-tolerant STT, multimodal context (speech + vision + personal memory + time), LLM ranking with actions, voice cloning, camera reading, and a multi-view local-first OS. Five parallel workstreams built it against shared typed contracts in one day.
 
-**Where did the stats come from?**
-NIDCD (~2M in the U.S.), ASHA (100k–180k new per year), StatPearls/NCBI (21–38% of acute stroke). They're linked on the landing page. Estimates vary between sources, and we quote the conservative ones.
+**Where are the stats from?**
+NIDCD (~2M in the U.S.), ASHA (100k–180k new per year), StatPearls/NCBI (21–38% of acute stroke patients). They're linked on the landing page. Estimates vary between sources, so we quote ranges.

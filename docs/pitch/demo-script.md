@@ -1,18 +1,25 @@
 # 2-minute demo video: script + shot list
 
-Built around the **cheat-code moment**: fragments → 3 cards → his own voice → granddaughter answers.
-Roles: **Grandpa** (person with aphasia, an actor), **Ellie** (granddaughter, on the phone), **Narrator** (voice-over).
+Spine: **read a bill with the camera → call Ellie → reply in his own voice.** The cheat-code moment is fragments → 3 cards → his own voice → Ellie answers.
+Cast: **Walter** (person with aphasia), **Ellie** (granddaughter, on the phone), **Rosa** (wife, Family bridge), **VO** narrator.
 
 | Time | Shot | Audio / VO |
 |---|---|---|
-| 0:00–0:12 | Close-up: grandpa at the kitchen table, phone in hand, trying to speak. Soft light. | Grandpa: "Water… no… Ellie… phone… birthday." Long pause. VO: "Robert knows exactly what he wants to say." |
-| 0:12–0:25 | Slow push-in on his face, frustrated. Insert: calendar showing Nov 15, "Ellie 🎂". | VO: "After his stroke, the words don't come out. It's called aphasia. About two million Americans live with it." (on-screen caption: Source: NIDCD) |
-| 0:25–0:35 | Title card on the glass gradient: **Voice**. | VO: "Voice turns the words he *can* say into the sentence he *meant*." |
-| 0:35–0:55 | Over-the-shoulder phone screen: he taps the talk button. Fragments appear live. He lifts the phone; a camera chip reads "phone — pointed at". | Ambient. Light UI sounds. |
-| 0:55–1:10 | **Cheat-code moment.** Three glass cards animate in: (1) "Call Ellie and wish her a happy birthday. Tell her I love her." (2) "Can you help me call Ellie?" (3) "I want some water." Small "because" text: "You said Ellie + birthday; it's Nov 15." | Music swells softly. |
-| 1:10–1:20 | His finger taps card 1. Cut to his face. | **In his own cloned voice:** "Call Ellie and wish her a happy birthday. Tell her I love her." |
-| 1:20–1:35 | Phone rings. Split screen: Ellie (about 10) picks up, beaming. | Ellie: "Grandpa! Thank you! I love you too!" Hold on his smile, 3 seconds of silence. |
-| 1:35–1:50 | Family mode: his daughter speaks a long sentence; the screen shows "Ellie comes tomorrow. 👋 / We will have cake. 🎂 / Doctor on Monday. 🩺" He nods. | VO: "And it works both ways. Family mode makes what they say simple to follow." |
-| 1:50–2:00 | Wide shot of the family at the table. End card: **Voice — the words are still there.** BayValleyHacks 2026. | VO: "Elevate the ordinary. Give someone their voice back." |
+| 0:00–0:10 | Kitchen table, morning. Walter holds an envelope and stares at it. Close on the dense text. | VO: "Walter understands everything. But since his stroke, words don't work: not spoken, not written." |
+| 0:10–0:18 | Caption over his face: *About 2 million Americans live with aphasia — NIDCD*. | VO: "It's called aphasia." |
+| 0:18–0:25 | Title card on the aurora glass: **VoiceOS**. | VO: "So we rebuilt his phone around what he *can* do." |
+| 0:25–0:42 | **Read the bill.** He holds the bill up to the phone camera. The screen shows one big card: 🧾 "Electric bill. $84.20. Due Nov 20." He taps **Pay**. A chip appears: "Rosa will confirm." | Device voice reads the line aloud. Soft UI tick. |
+| 0:42–0:50 | Cut: Rosa's phone, Family bridge → Payments. She taps **✓ Looks right**. | VO: "He decides. Family double-checks. Nothing moves money on its own." |
+| 0:50–1:02 | Walter glances at the calendar (🎂 Ellie, Nov 15). Taps the talk button. Fragments pop up live: *water… no… Ellie… phone… birthday*. A camera chip shows "phone — pointed at". | His real halting voice. |
+| 1:02–1:12 | **Cheat-code moment.** Three glass cards rise: (1) "Call Ellie and wish her a happy birthday. Tell her I love her." (2) "Can you help me call Ellie?" (3) "I'd like some water." Small text: *You said Ellie + birthday; it's Nov 15.* | Music swells. |
+| 1:12–1:22 | He taps card 1. Close on his face. | **His own cloned voice:** "Call Ellie and wish her a happy birthday. Tell her I love her." |
+| 1:22–1:35 | Phone rings. Split screen: Ellie picks up, beaming. | Ellie: "Grandpa! I love you too! Are you coming Sunday?" |
+| 1:35–1:45 | **Reply in his own voice.** He says "Sunday… yes… cake". The cards show "Yes, I'll be there Sunday. Save me some cake." Tap. | His cloned voice says it. Ellie laughs. 3 s of held silence on his smile. |
+| 1:45–1:53 | Practice card slides up: "Want to try saying **Ellie**?" He says "El… Ellie." ⭐ | VO: "Every sentence becomes a little therapy." |
+| 1:53–2:00 | Montage tiles: Memory Book, My Day, Family bridge. End card: **VoiceOS: the words are still there.** BayValleyHacks 2026. | VO: "Elevate the ordinary. Give someone their life back." |
 
-**Production notes:** record his real voice sample first (30–60 s) for the clone. Run a pre-rehearsed context (Ellie, birthday) but a live model call. Capture the screen recording at 60 fps. Keep the stats caption on screen at least 3 s.
+**Production notes**
+- Record Walter's voice sample (30–60 s) first, for the clone.
+- Pre-load Memory Book (Ellie, granddaughter, birthday Nov 15) and seed the bill.
+- Run live model calls but pre-warm the server, since understanding takes about 7–9 s. Cut the wait in the edit, and say so if asked.
+- Screen-record at 60 fps. Keep the stat caption up at least 3 s.
