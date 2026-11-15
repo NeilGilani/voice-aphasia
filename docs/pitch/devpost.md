@@ -44,4 +44,6 @@ We wrote these cases ourselves and the matching is lenient, so these are smoke-t
 ## What's next
 Co-design with speech-language pathologists and people with aphasia; on-device models; nod/gaze selection; real telephony and banking integrations behind family confirmation; more languages.
 
+In the demo, the "Frank" voice is cloned from a public sample speaker, not a real patient.
+
 *VoiceOS is a hackathon prototype, not a medical device.*

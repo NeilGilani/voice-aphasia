@@ -36,6 +36,7 @@ Speed-ups: "Thinking" waits run at 2–3× and Ellie's second typing at 1.5×. E
 - The camera input is the sample bill (`src/vision/read/samples/bill.png`) fed in as a fake webcam.
 - The second chosen sentence was Claude's top card, "Ellie, I love you. Thank you. Saturday." We didn't script it to say "I love you, Ellie."
 - His voice lines were re-synthesised from the same clone and placed at the tap time. The browser recording itself has no audio track.
+- The "Frank" voice is cloned from a public sample speaker, not a real patient. With no clone it falls back to a natural non-cloned voice (Kokoro).
 
 ## Re-render
 Scripts are in `docs/pitch/video-build/`:
