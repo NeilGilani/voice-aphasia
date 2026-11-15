@@ -1,0 +1,80 @@
+.v-shell{position:relative;isolation:isolate;min-height:100dvh;max-width:560px;margin:0 auto;display:flex;flex-direction:column;padding:16px 16px 0;overflow-x:hidden}
+.v-aurora{position:fixed;inset:-20%;z-index:-1;background:
+ radial-gradient(40% 35% at 20% 15%,rgba(124,92,255,.55),transparent 70%),
+ radial-gradient(35% 30% at 85% 30%,rgba(0,200,255,.40),transparent 70%),
+ radial-gradient(45% 40% at 50% 95%,rgba(255,120,170,.35),transparent 70%),#0b0b1a;
+ filter:blur(30px);animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(3%,-2%,0) rotate(6deg) scale(1.06)}}
+.glass{background:linear-gradient(140deg,rgba(255,255,255,.16),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.22);
+ backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);
+ box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25);border-radius:24px}
+.v-top{display:flex;align-items:center;gap:10px}
+.v-brand{font-weight:700;font-size:22px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;flex:1}
+.v-dot{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#fff,#8b7bff);box-shadow:0 0 16px #8b7bff}
+.v-chip{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8)}
+.v-icon{width:44px;height:44px;border-radius:50%;color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center}
+.v-main{flex:1;display:flex;flex-direction:column;gap:16px;padding:20px 0 220px}
+.v-kicker{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.6);margin-bottom:10px}
+.v-heard{padding:20px}
+.v-frags{display:flex;flex-wrap:wrap;gap:8px;min-height:44px;align-items:center}
+.v-frag{font-size:24px;font-weight:600;padding:6px 14px;border-radius:14px;background:rgba(255,255,255,.12);animation:pop .4s both}
+.v-hint{font-size:20px;color:rgba(255,255,255,.55)}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.95)}}
+.v-cards{display:flex;flex-direction:column;gap:12px}
+.v-card{position:relative;text-align:left;color:#fff;padding:22px 22px 18px 64px;cursor:pointer;display:flex;flex-direction:column;gap:8px;
+ animation:rise .5s cubic-bezier(.2,.8,.2,1) both;transition:transform .15s,box-shadow .2s;font:inherit;min-height:110px}
+.v-card:active{transform:scale(.98)}
+.v-card:hover{box-shadow:0 14px 50px rgba(124,92,255,.35),inset 0 1px 0 rgba(255,255,255,.3)}
+.v-card.best{border-color:rgba(180,160,255,.7);box-shadow:0 0 0 1px rgba(160,140,255,.4),0 14px 50px rgba(124,92,255,.45),inset 0 1px 0 rgba(255,255,255,.3)}
+.v-num{position:absolute;left:18px;top:20px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:rgba(255,255,255,.18)}
+.v-card.best .v-num{background:linear-gradient(135deg,#8b7bff,#38d0ff)}
+.v-text{font-size:24px;line-height:1.25;font-weight:600}
+.v-because{font-size:14px;color:rgba(255,255,255,.65)}
+.v-card.skel{min-height:110px;background:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,.16),rgba(255,255,255,.06));background-size:200% 100%;animation:shim 1.2s linear infinite}
+@keyframes shim{to{background-position:-200% 0}}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}}
+.v-retry{background:none;border:none;color:rgba(255,255,255,.7);font-size:16px;padding:12px;cursor:pointer;text-decoration:underline}
+.v-spoken{padding:22px;font-size:24px;font-weight:600;line-height:1.3;display:flex;gap:14px;align-items:center}
+.v-wave{display:flex;gap:3px;align-items:center;height:28px}
+.v-wave i{width:4px;height:8px;border-radius:2px;background:#9fe7ff}
+.v-spoken.live .v-wave i{animation:wave .9s ease-in-out infinite}
+.v-wave i:nth-child(2){animation-delay:.1s!important}.v-wave i:nth-child(3){animation-delay:.2s!important}.v-wave i:nth-child(4){animation-delay:.3s!important}.v-wave i:nth-child(5){animation-delay:.4s!important}
+@keyframes wave{50%{height:28px}}
+.v-history{display:flex;flex-direction:column;gap:8px}
+.v-bubble{align-self:flex-end;max-width:85%;padding:12px 16px;border-radius:18px 18px 4px 18px;background:rgba(139,123,255,.28);border:1px solid rgba(255,255,255,.15);font-size:17px}
+.v-bubble.other{align-self:flex-start;border-radius:18px 18px 18px 4px;background:rgba(255,255,255,.1)}
+.v-bubble time{display:block;font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
+.v-dock{position:fixed;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 16px calc(16px + env(safe-area-inset-bottom));
+ background:linear-gradient(transparent,rgba(11,11,26,.85) 40%)}
+.v-type{width:100%;max-width:528px;padding:4px 16px;border-radius:999px}
+.v-type input{width:100%;background:none;border:none;outline:none;color:#fff;font-size:17px;padding:10px 0}
+.v-talk{position:relative;width:112px;height:112px;border-radius:50%;border:none;color:#fff;cursor:pointer;display:grid;place-items:center;
+ background:radial-gradient(circle at 30% 25%,#b3a8ff,#6d4dff 55%,#3b1fd1);box-shadow:0 0 40px rgba(124,92,255,.7),inset 0 2px 6px rgba(255,255,255,.5);transition:transform .15s}
+.v-talk:active{transform:scale(.95)}
+.v-talk:disabled{opacity:.7}
+.v-talk.listening{background:radial-gradient(circle at 30% 25%,#ffb3cf,#ff4d8d 55%,#c3135a);box-shadow:0 0 60px rgba(255,77,141,.8)}
+.v-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,255,255,.4);opacity:0}
+.v-talk.listening .v-ring,.v-talk.idle .v-ring{animation:ring 2.2s ease-out infinite}
+.v-talk.idle .v-ring{animation-duration:3.5s}
+.v-ring.r2{animation-delay:1.1s!important}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.7);opacity:0}}
+.v-label{font-size:18px;font-weight:600;color:rgba(255,255,255,.9)}
+.v-sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:flex-end;justify-content:center;z-index:10;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.v-sheet{width:100%;max-width:560px;max-height:90dvh;overflow:auto;padding:22px;border-radius:28px 28px 0 0;animation:rise .3s;background:rgba(30,26,60,.75)}
+.v-sheet-head{display:flex;justify-content:space-between;align-items:center}
+.v-sheet h2{margin:0;font-size:26px}.v-sheet h3{margin:22px 0 8px;font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6)}
+.v-sub{color:rgba(255,255,255,.65);margin:6px 0 16px}
+.v-field{display:flex;flex-direction:column;gap:6px;font-size:14px;color:rgba(255,255,255,.7)}
+.v-sheet input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;color:#fff;padding:10px 12px;font-size:16px;min-width:0;flex:1}
+.v-row{display:flex;gap:6px;margin-bottom:6px}
+.v-x{background:none;border:none;color:rgba(255,255,255,.5);cursor:pointer;font-size:16px}
+.v-add,.v-ghost{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer;font-size:15px}
+.v-facts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.v-pill{background:rgba(139,123,255,.25);padding:6px 6px 6px 12px;border-radius:999px;font-size:14px;display:flex;align-items:center;gap:4px}
+.v-pill button{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer}
+.v-sheet-foot{display:flex;justify-content:space-between;margin-top:24px}
+.v-primary{background:linear-gradient(135deg,#8b7bff,#38d0ff);border:none;color:#fff;font-weight:700;border-radius:14px;padding:12px 28px;font-size:17px;cursor:pointer}
+.v-icon.on{background:linear-gradient(135deg,#ffd666,#ff8a5c);color:#1a1030}
+.v-cam{overflow:hidden;padding:0;aspect-ratio:4/3;position:relative}
+.v-cam video,.v-cam canvas{width:100%;height:100%;object-fit:cover;display:block}
