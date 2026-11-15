@@ -11,7 +11,7 @@ function StatusBar() {
   return (
     <div className="os-status">
       <span>{now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</span>
-      <span className="sp" />
+      <span className="os-spacer" />
       <span className="os-online" title={`${online.map((c) => c.name).join(', ')} online`}>
         {online.map((c) => <Avatar key={c.id} c={c} size={26} />)}<span className="dot" />
       </span>
