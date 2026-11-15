@@ -1,0 +1,60 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+const BASE = 'http://localhost:5177';
+const OUT = process.cwd() + '/raw'; fs.rmSync(OUT, { recursive: true, force: true }); fs.mkdirSync(OUT);
+const browser = await chromium.launch({ executablePath: process.env.HOME + '/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing', args: ['--autoplay-policy=no-user-gesture-required'] });
+const log = []; const T0 = Date.now(); let frank;
+const MK = `(() => { const d = document.createElement('div'); d.id='__mk'; d.style.cssText='position:fixed;left:0;top:0;width:12px;height:12px;z-index:2147483647;background:rgb(0,0,0);pointer-events:none'; const add=()=>document.body?document.body.appendChild(d):setTimeout(add,10); add(); })()`;
+const mark = async (ev, extra = {}) => { const i = log.length; const g = 16 + i * 6; log.push({ ev, i, g, t: (Date.now() - T0) / 1000, ...extra }); console.log(ev, JSON.stringify(extra));
+  if (frank) await frank.evaluate((g) => { const d = document.getElementById('__mk'); if (d) d.style.background = `rgb(${g},${g},${g})`; }, g).catch(() => {}); await new Promise((r) => setTimeout(r, 250)); };
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const Z = 1.5;
+// seed context like family would via Memory Book
+const setup = await (await browser.newContext()).newPage();
+await setup.goto(BASE + '/#/landing');
+const seeded = await setup.evaluate(async () => {
+  const { FRANK_CONTEXT } = await import('/src/app/os/persona.ts');
+  const c = structuredClone(FRANK_CONTEXT);
+  c.facts.push("Ellie's birthday party is this Saturday at David's house; Frank is invited");
+  c.history = [{ text: "I'm sorry, sweetheart. I'm not feeling well today.", at: Date.now() - 864e5 * 3 }, { text: 'I love you, sweetheart.', at: Date.now() - 864e5 * 2 }];
+  return c;
+});
+const fctx = await browser.newContext({ viewport: { width: Math.round(390 * Z), height: Math.round(844 * Z) }, recordVideo: { dir: OUT + '/frank', size: { width: Math.round(390 * Z), height: Math.round(844 * Z) } } });
+await fctx.addInitScript(([ctx, z, mk]) => { try { localStorage.setItem('voiceos.context.v2', JSON.stringify(ctx)); } catch {} ; eval(mk); const st = document.createElement('style'); st.textContent = `html{zoom:${z}}`; (document.head || document.documentElement).appendChild(st); }, [seeded, Z, MK]);
+frank = await fctx.newPage();
+await frank.goto(BASE + '/#/app'); await sleep(2500); await mark('home');
+await sleep(1500);
+const openApp = async (name) => { await frank.locator('.os-dock-btn[aria-label="Home"]').click().catch(() => {}); await sleep(700); const b = frank.locator(`.os-app:has(span:text-is("${name}"))`).first(); await b.scrollIntoViewIfNeeded(); await sleep(400); await b.click(); await sleep(900); };
+await openApp('Phone'); await mark('phone');
+await sleep(1200);
+// Ellie joins from a hidden second device
+const ellie = await (await browser.newContext()).newPage();
+await ellie.goto(BASE + '/#/caller'); await sleep(1500);
+await frank.locator('button', { hasText: 'Ellie' }).first().click(); await mark('dial');
+await frank.locator('.ph-mode.live').waitFor({ timeout: 20000 }); await mark('live');
+await sleep(1500);
+const i = ellie.locator('.caller-type input'); await i.fill("Hi Grandpa! Are you still coming to my birthday party on Saturday? Everyone's going to be there!"); await ellie.locator('.caller-type button').click(); await mark('ellie_said');
+await frank.locator('.ph-in').first().waitFor(); await sleep(6000); await mark('ellie_read');
+const good = (t) => /saturday|can.?t|cannot|won.?t|not/i.test(t) && /sorry/i.test(t) && /love/i.test(t);
+let text = '';
+for (let attempt = 0; attempt < 4; attempt++) {
+  const inp = frank.locator('.cp-type input'); await inp.scrollIntoViewIfNeeded(); await inp.click();
+  await mark('typing', { attempt }); await inp.pressSequentially(attempt < 2 ? 'car no sick sorry love' : 'party no sick sorry love', { delay: 110 });
+  await sleep(500); await inp.press('Enter'); await mark('thinking', { attempt });
+  await frank.locator('.cp-card:not(.skel)').first().waitFor({ timeout: 120000 }); await mark('cards', { attempt });
+  text = (await frank.locator('.cp-card:not(.skel) .cp-text').first().innerText()).trim();
+  const because = (await frank.locator('.cp-card:not(.skel) .cp-because').first().innerText()).trim();
+  console.log('TOP:', text, '|', because);
+  if (good(text)) break;
+  await sleep(500);
+}
+await frank.locator('.cp-card.best').scrollIntoViewIfNeeded();
+await sleep(1500);
+await frank.evaluate(() => { const c = document.querySelector('.cp-card.best'); c.style.transition = 'box-shadow .6s, transform .6s'; c.style.boxShadow = '0 0 0 3px #b3a8ff, 0 0 60px rgba(160,140,255,.9)'; c.style.transform = 'scale(1.03)'; const b = c.querySelector('.cp-because'); b.style.transition = 'color .6s'; b.style.color = '#9fe7ff'; });
+await mark('highlight', { text });
+await sleep(9500);
+await frank.locator('.cp-card.best').click(); await mark('tap', { text });
+await frank.locator('.cp-label', { hasText: 'Tap and talk' }).waitFor({ timeout: 60000 }); await mark('spoken_done');
+await sleep(4000); await mark('end');
+const fv = frank.video(); await fctx.close(); await browser.close();
+fs.copyFileSync(await fv.path(), OUT + '/frank.webm'); fs.writeFileSync(OUT + '/log.json', JSON.stringify(log, null, 1));
