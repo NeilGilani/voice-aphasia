@@ -13,18 +13,25 @@ import './messages.css';
 interface Msg { id: string; from: 'them' | 'me'; text: string; at: number; simple?: SimpleLine[] }
 interface Thread { id: string; name: string; icon: string; msgs: Msg[]; unread: boolean }
 
-const KEY = 'voice.messages.v1';
+const KEY = 'voice.messages.v2';
 const ago = (min: number) => Date.now() - min * 60_000;
 const SEED: Thread[] = [
-  { id: 'ellie', name: 'Ellie', icon: '👧', unread: true, msgs: [
-    { id: 'e1', from: 'them', at: ago(90), text: "Hi Dad!! Can't believe I'm another year older today 🎂 Are you free for a call tonight after dinner? Love you so much." },
+  { id: 'ellie', name: 'Ellie', icon: '🎓', unread: true, msgs: [
+    { id: 'e1', from: 'them', at: ago(90), text: "Hi Grandpa!! Can't believe I'm another year older today 🎂 Are you free for a call tonight after dinner? Love you so much." },
   ] },
   { id: 'patel', name: 'Dr. Patel', icon: '🩺', unread: true, msgs: [
     { id: 'p1', from: 'them', at: ago(240), text: 'Reminder: your speech therapy session has moved from Tuesday to Thursday, November 19 at 3:00 PM. Please bring your practice workbook. Reply YES to confirm.' },
   ] },
-  { id: 'rosa', name: 'Rosa', icon: '👵', unread: false, msgs: [
-    { id: 'r1', from: 'them', at: ago(600), text: "I'm at the pharmacy picking up your prescription, then grabbing groceries. Do you want anything special for dinner? Back around 5." },
-    { id: 'r2', from: 'me', at: ago(590), text: 'Soup, please. Thank you, love.' },
+  { id: 'maria', name: 'Maria', icon: '🌻', unread: false, msgs: [
+    { id: 'm1', from: 'them', at: ago(600), text: "I'm at the pharmacy picking up your prescription, then grabbing groceries. Do you want anything special for dinner? Back around 5." },
+    { id: 'm2', from: 'me', at: ago(590), text: 'Soup, please. Thank you, love.' },
+  ] },
+  { id: 'sam', name: 'Sam', icon: '⚾', unread: true, msgs: [
+    { id: 's1', from: 'them', at: ago(30), text: 'Grandpa did you see the Giants trade news?? Want to watch the game together Sunday at your place? I can bring snacks.' },
+  ] },
+  { id: 'david', name: 'David', icon: '🔧', unread: false, msgs: [
+    { id: 'd1', from: 'them', at: ago(1440), text: "Hey Dad, I'll come by Saturday morning to fix the garden gate. Need anything from the hardware store?" },
+    { id: 'd2', from: 'me', at: ago(1430), text: 'No, thank you. See you Saturday.' },
   ] },
 ];
 
