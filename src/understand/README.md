@@ -5,15 +5,24 @@
 - `understand(req)` → `POST ${VITE_UNDERSTAND_URL ?? http://localhost:8787}/api/understand` → exactly 3 candidates. For `call`/`text` actions, `to` is the phone number.
 - `loadContext()/saveContext()/updateContext()` store PersonContext in localStorage (`DEMO_CONTEXT` = Frank). After a pick, call `learnFromChoice(ctx, candidate)`; the last 8 choices go into the prompt as a prior.
 
-**Server**: `node server/understand.ts` (Node ≥ 23, no dependencies). Env: `PORT` (default 8787), `UNDERSTAND_MODEL` (sonnet|haiku|opus).
-It runs headless `claude -p --output-format json` with the user's Claude subscription. The prompt goes in on stdin, with a custom system prompt, no tools, no MCP and no settings. Output is JSON, then validated, repaired and padded to 3.
-If the CLI fails, it falls back to the Anthropic API, but only when `ANTHROPIC_API_KEY` is set.
+**Also:** `understandStream(req, onPartial)` shows each sentence as soon as it is done. `simplify(text, people)` → `{lines:[{text, icon, keywords}]}` powers Phone, Messages and Read. The Messages screen is `src/messages` (`<Messages voice onBack />`).
 
-**Eval**: `node server/understandEval.ts [sonnet|haiku]`. 30 cases; a hit means a candidate matches all keyword regex groups (lenient).
-Measured 2026-11-15 with DEMO_CONTEXT:
-- sonnet: top-1 27/30, top-3 30/30
-- haiku: top-1 28/30, top-3 30/30
-Misses: "tephone" → Ellie birthday call (top-1 has no "phone"); "water" + pointing at cup → coffee (overcorrects the literal word); sonnet "cold… blanket… no… window" → blanket.
-Caveat: the keyword match is loose and the cases were written by us, so treat these as smoke numbers, not clinical accuracy.
+**Server**: `node server/understand.ts` (Node ≥ 23, no deps; port 8787, which Vite proxies as `/api`).
+- `POST /api/understand`, plus `?stream=1` (NDJSON partials, then the final result)
+- `POST /api/simplify`
+Each request uses a warm pool of headless `claude -p` processes on the user's Claude subscription. The prompt goes in as stream-json, with no tools, no MCP and no settings, `--effort low` and thinking off.
+- **Hedged:** each request goes to 2 pre-spawned processes and the first finisher wins.
+- **Resolves early:** it returns on the stream's `message_stop`, because the CLI emits its own `result` about 2 s later.
+- **Fallback:** the Anthropic API, only if `ANTHROPIC_API_KEY` is set.
+- **Env:** `UNDERSTAND_MODEL` (default haiku), `CLAUDE_POOL` (4), `CLAUDE_HEDGE` (2).
 
-**Latency**: one request takes about 7–9 s end to end (sonnet ≈ haiku). About 3 s of that is `claude` CLI startup, so use the API fallback if speed matters. The UI should show a "thinking" state.
+**Latency** (same request, measured):
+- Before (cold `claude -p` per call): 7–9 s.
+- After, with the warm pool idle: total 2.4–3.3 s, first sentence about 2 s.
+- Eval run back-to-back (1.5 s gaps, so the pool doesn't fully re-warm): median 4.0 s, p90 4.9 s, first sentence median 3.1 s.
+
+**Eval**: `node server/understandEval.ts [haiku|sonnet]`. 30 cases; a hit means a candidate matches all keyword regex groups (lenient, and we wrote the cases). Smoke numbers, not clinical accuracy.
+- After the changes: haiku top-1 28/30, top-3 30/30.
+- Before: sonnet 27/30 top-1, 30/30 top-3; haiku 28/30 top-1, 30/30 top-3.
+- Persistent misses: "tephone" → Ellie call; "water" + cup → not water.
+Full output: `server/understandEval.results.txt`.

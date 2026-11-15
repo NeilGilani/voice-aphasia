@@ -1,3 +1,38 @@
+# after (warm pool + hedge + effort low, haiku, sequential 1.5s gaps)
+✓ 4514ms  "water… no… Ellie… phone… birthday"  [Call Ellie for her birthday] -> Call Ellie. It's her birthday.
+✓ 4878ms  "the… the hot… black… cup"  [I want coffee] -> I'd like my hot black coffee, please.
+✓ 4101ms  "pills… pills… um… eight"  [Time for / did I take my morning pills] -> Did I take my pills? It's eight o'clock.
+✓ 4389ms  "bathroom… need… now"  [I need the bathroom] -> I need the bathroom now.
+✓ 3109ms  "Giants… tonight… on… the box"  [Turn on the Giants game on TV] -> Turn on the Giants game, please.
+✓ 3804ms  "cold… blanket… no… the… window"  [Close the window, it is cold] -> I'm cold. Can you close the window?
+✓ 5228ms  "Maria… where… Maria"  [Where is Maria?] -> Where is Maria?
+✓ 3582ms  "David… text… late"  [Text David / I will be late] -> David, text me later.
+✓ 4025ms  "hurts… here… arm… right"  [My right arm hurts] -> My right arm hurts here.
+✓ 4595ms  "Biscuit… out… walk"  [Take Biscuit out for a walk] -> I want to take Biscuit out for a walk.
+✓ 2170ms  "yes… no… no… yes"  [Yes] -> Yes, lunch now, please.
+✓ 4483ms  "fork… the… fork… write"  [I need a pen to write] -> I need the pen to write.
+~ 2210ms  "tephone… tephone"  [Give me the telephone] -> Call Ellie, it's her birthday.
+✓ 3698ms  "tired… bed… sleep"  [I am tired, I want to go to bed] -> I'm tired. I want to go to bed.
+✓ 4514ms  "thank… thank… you… good"  [Thank you] -> Thank you, that's good.
+✓ 3589ms  "love… Ellie… tell"  [Tell Ellie I love her] -> I love Ellie. Tell her happy birthday.
+✓ 4130ms  "garden… three… outside"  [Go for my walk in the garden] -> I want to go out to the garden for my walk now.
+✓ 3589ms  "eat… hungry… sandwich… no… soup"  [I am hungry, I want soup] -> I'm hungry. I want a sandwich. No, soup.
+✓ 4470ms  "glasses… where… can't… see"  [Where are my glasses?] -> Where are my glasses? I can't see.
+✓ 5075ms  "doctor… Patel… tomorrow… no"  [Is Dr. Patel coming / call Dr. Patel] -> Is Dr. Patel coming tomorrow? No, not tomorrow. When?
+✓ 4145ms  "hot… too… hot… the… the… wind thing"  [It is too hot, turn on the fan] -> It's too hot. Can you turn on the fan?
+✓ 3670ms  "remote… no… the… the… book"  [Hand me my book] -> I want the book.
+~ 3136ms  "water"  [I would like some water] -> Yes, I want the cup, please.
+✓ 2963ms  "that… that one… give"  [Hand me the remote] -> Can you give me the remote, please?
+✓ 3293ms  "slow… slow… down… please"  [Please speak more slowly] -> Please slow down.
+✓ 3775ms  "car… keys… no… David… drive"  [David, can you drive me?] -> David, can you drive me?
+✓ 4567ms  "scared… head… again"  [I am scared it is happening again (stroke)] -> I'm scared. My head hurts again.
+✓ 3314ms  "happy… birthday… song… Ellie"  [Let's sing happy birthday to Ellie] -> Happy birthday, Ellie. Let's sing the song for her.
+✓ 3797ms  "game… who… win… score"  [Who won the game / what is the score?] -> Did the Giants win? What was the score?
+✓ 4062ms  "no… not… that… the… other… blue"  [Not that one, the blue one] -> Not that red one. The other blue one.
+
+model=haiku n=30 top1=28/30 top3=30/30 latency median=4025ms p90=4878ms; first sentence median=3142ms
+
+# before (cold claude -p per request, 5 concurrent)
 ✓ 9640ms  "water… no… Ellie… phone… birthday"  [Call Ellie for her birthday] -> I want to call Ellie. Happy birthday, sweetheart!
 ✓ 8707ms  "the… the hot… black… cup"  [I want coffee] -> I'd like a hot cup of coffee, black, please.
 ✓ 9881ms  "pills… pills… um… eight"  [Time for / did I take my morning pills] -> It's eight o'clock. Is it time for my pills?
