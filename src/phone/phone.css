@@ -1,0 +1,16 @@
+.ph-mode { font-size: 13px; opacity: .8; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.07); margin: 6px auto; max-width: 90%; text-align: center; }
+.ph-mode.live { background: rgba(46,204,113,.18); }
+.ph-mode.sim { background: rgba(241,196,15,.18); }
+.ph-log { width: 100%; display: flex; flex-direction: column; gap: 12px; margin: 12px 0; text-align: left; }
+.ph-in { padding: 14px; border-radius: 18px; }
+.ph-raw { font-size: 20px; }
+.ph-in-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 13px; opacity: .85; gap: 8px; }
+.ph-in-foot summary { cursor: pointer; }
+.ph-interim { opacity: .6; }
+.caller { min-height: 100vh; display: grid; place-items: start center; padding: 24px 16px; background: var(--os-bg, #0b0f1a); color: var(--os-ink, #fff); }
+.caller-card { width: 100%; max-width: 560px; padding: 22px; border-radius: 24px; display: flex; flex-direction: column; gap: 12px; }
+.caller-card h2 { margin: 0; }
+.caller-voice { font-size: 14px; opacity: .85; }
+.caller-type { display: flex; gap: 8px; }
+.caller-type input { flex: 1; font: inherit; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.2); background: rgba(0,0,0,.2); color: inherit; }
+.caller-note { font-size: 12px; opacity: .6; margin: 0; }

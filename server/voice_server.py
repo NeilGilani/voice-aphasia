@@ -5,6 +5,9 @@ Endpoints (all under /api/voice):
   POST /clone             multipart: audio (any format ffmpeg reads, incl. video), name, ref_text?
   POST /speak             {"text": "..."} -> audio/wav  (cached)
   POST /prepare           {"texts": [...]} -> pre-synthesise in the background
+  Call relay (two devices/tabs, text only; each side does its own STT/TTS):
+  POST /call/{room}       {"who": "frank"|"ellie", "kind": "line"|"hello"|"bye", "text": "..."}
+  GET  /call/{room}/events  Server-Sent Events, one JSON event per line said
 
 Run:  ~/voice-ext/f5env/bin/python server/voice_server.py   (port 8790, VOICE_PORT to change)
 The sample stays on this machine (VOICE_DATA, default ~/voice-ext/data).
@@ -19,7 +22,8 @@ import soundfile as sf
 import uvicorn
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import Response, StreamingResponse
+import asyncio
 from pydantic import BaseModel
 
 # f5-tts-mlx 0.2.6 passes a tuple shape; newer MLX only accepts a list of ints.
@@ -182,6 +186,47 @@ def prepare(req: PrepareReq):
     return {"ok": True}
 
 
+# ---- call relay ---------------------------------------------------------------
+rooms: dict[str, list[asyncio.Queue]] = {}
+history: dict[str, list[dict]] = {}
+
+
+class CallEvent(BaseModel):
+    who: str
+    kind: str = "line"
+    text: str = ""
+
+
+@app.post("/api/voice/call/{room}")
+async def call_send(room: str, ev: CallEvent):
+    e = {**ev.model_dump(), "at": time.time()}
+    history.setdefault(room, []).append(e)
+    del history[room][:-50]
+    for q in rooms.get(room, []):
+        q.put_nowait(e)
+    return {"ok": True, "listeners": len(rooms.get(room, []))}
+
+
+@app.get("/api/voice/call/{room}/events")
+async def call_events(room: str):
+    q: asyncio.Queue = asyncio.Queue()
+    rooms.setdefault(room, []).append(q)
+
+    async def gen():
+        try:
+            yield "retry: 1000\n\n"
+            while True:
+                try:
+                    e = await asyncio.wait_for(q.get(), 15)
+                    yield f"data: {json.dumps(e)}\n\n"
+                except asyncio.TimeoutError:
+                    yield ": ping\n\n"
+        finally:
+            rooms[room].remove(q)
+
+    return StreamingResponse(gen(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+
 def warm():
     model()
     if state["meta"]:
@@ -193,7 +238,7 @@ def warm():
 if __name__ == "__main__":
     submit(load_voice)
     submit(warm)
-    cfg = uvicorn.Config(app, host="127.0.0.1", port=int(os.environ.get("VOICE_PORT", "8790")))
+    cfg = uvicorn.Config(app, host=os.environ.get("VOICE_HOST", "127.0.0.1"), port=int(os.environ.get("VOICE_PORT", "8790")))
     threading.Thread(target=uvicorn.Server(cfg).run, daemon=True).start()
     while True:
         fut, fn, args = jobs.get()
