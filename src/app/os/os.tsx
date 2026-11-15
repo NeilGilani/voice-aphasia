@@ -1,5 +1,5 @@
 /* VoiceOS kernel: navigation stack, toasts, shared state, voice engine. */
-import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { PersonContext, VoiceEngine } from '../../contracts';
 import { CONTACTS, MESSAGES, type Contact, type Msg } from './persona';
 import { usePersonContext } from '../store';
@@ -29,6 +29,13 @@ export function OSProvider({ children }: { children: ReactNode }) {
   const [ctx, setCtx] = usePersonContext();
   const voice = useMemo(() => getVoice(), []);
   const tid = useRef(0);
+  const [, bump] = useState(0);
+  useEffect(() => {
+    const check = () => voice.ready().then(() => bump((n) => n + 1)).catch(() => {});
+    check();
+    const t = setInterval(check, 15000);
+    return () => clearInterval(t);
+  }, [voice]);
 
   const dismiss = useCallback((id: number) => setToasts((t) => t.filter((x) => x.id !== id)), []);
   const toast = useCallback((t: Omit<Toast, 'id'>) => {

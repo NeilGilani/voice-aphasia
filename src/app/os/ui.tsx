@@ -6,15 +6,22 @@ import './tokens.css';
 export const hueGrad = (hue: number) =>
   `radial-gradient(circle at 30% 20%, hsl(${hue} 95% 78%), hsl(${hue} 80% 55%) 55%, hsl(${(hue + 30) % 360} 75% 38%))`;
 
+/** Illustrated portrait (DiceBear, CC0); the gradient shows through if offline. */
+export const portrait = (name: string, hue: number) =>
+  `https://api.dicebear.com/9.x/notionists/svg?seed=${encodeURIComponent(name)}&backgroundType=solid&backgroundColor=${hslHex(hue)}`;
+function hslHex(h: number) {
+  const f = (n: number) => { const k = (n + h / 30) % 12; const a = 0.6 * Math.min(0.75, 1 - 0.75); return Math.round(255 * (0.75 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))).toString(16).padStart(2, '0'); };
+  return `${f(0)}${f(8)}${f(4)}`;
+}
+
 export function Avatar({ c, size = 64, ring }: { c: Pick<Contact, 'name' | 'hue' | 'emoji' | 'photo'>; size?: number; ring?: boolean }) {
   const style: CSSProperties = {
     width: size, height: size, fontSize: size * 0.42,
-    backgroundImage: c.photo ? `url(${c.photo})` : hueGrad(c.hue),
+    backgroundImage: `url(${c.photo ?? portrait(c.name, c.hue)}), ${hueGrad(c.hue)}`,
     outline: ring ? '3px solid rgba(62,230,160,.9)' : undefined, outlineOffset: 3,
   };
   return (
     <span className="os-avatar" style={style} aria-label={c.name}>
-      {!c.photo && c.name.replace('Dr. ', '')[0]}
       <span className="em">{c.emoji}</span>
     </span>
   );

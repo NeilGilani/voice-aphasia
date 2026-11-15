@@ -7,7 +7,7 @@ import Read from './screens/Read';
 import { Call, Person, Phone } from './screens/People';
 import { Thread } from './screens/Messages';
 import { Messages as InboxScreen } from '../messages';
-import { Emergency, MemoryDetail, Money } from './screens/Life';
+import { Emergency, MemoryBook as MemoryCards, MemoryDetail, Money } from './screens/Life';
 import { FamilyBridge, MemoryBook, MyDay, Practice, Progress } from '../pages';
 import { AboutMe } from './screens/System';
 import { MESSAGES } from './os/persona';
@@ -26,7 +26,8 @@ registerApp({ id: 'messages', name: 'Messages', emoji: '💬', hue: 200, compone
 registerApp({ id: 'read', name: 'Read', emoji: '📷', hue: 175, component: Read });
 registerApp({ id: 'money', name: 'Money', emoji: '💵', hue: 120, component: Money });
 registerApp({ id: 'day', name: 'My Day', emoji: '☀️', hue: 45, component: MyDay });
-registerApp({ id: 'memories', name: 'Memories', emoji: '📖', hue: 25, component: MemoryBook });
+registerApp({ id: 'memories', name: 'Memories', emoji: '📖', hue: 25, component: MemoryCards });
+registerApp({ id: 'memory-edit', name: 'Memory editor', emoji: '📖', hue: 25, component: MemoryBook, hidden: true });
 registerApp({ id: 'practice', name: 'Practice', emoji: '🎯', hue: 300, component: Practice });
 registerApp({ id: 'family', name: 'Family', emoji: '👨‍👩‍👧', hue: 15, component: FamilyBridge });
 registerApp({ id: 'progress', name: 'Progress', emoji: '📈', hue: 160, component: Progress });

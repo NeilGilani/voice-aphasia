@@ -37,7 +37,8 @@ export function Composer({ recent = [], onSpoken, speak = true, quick = [], auto
     const startedAt = Date.now() - 8000;
     const utterance: Utterance = { id: crypto.randomUUID(), transcript: t, seen: await currentlySeen(), startedAt };
     const res = await understand({ utterance, context: os.ctx, now: new Date().toISOString(), recent: recent.slice(-8) });
-    setSource(res.source); setCands(res.candidates); setPhase('choosing');
+    setSource(res.source); setCands(res.candidates);
+    (os.voice as { prepare?: (t: string[]) => void }).prepare?.(res.candidates.map((c) => c.text)); setPhase('choosing');
   }
 
   function mic() {

@@ -69,6 +69,7 @@ export function MemoryBook() {
           </button>
         ))}
       </div>
+      <button className="os-btn block" style={{ marginTop: 16 }} onClick={() => os.open('memory-edit')}>✏️ Edit people &amp; stories</button>
     </>
   );
 }

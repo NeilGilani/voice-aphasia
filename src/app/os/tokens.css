@@ -86,3 +86,11 @@
 .settings-inline .v-sheet-bg{position:static;background:none;animation:none;display:block}
 .settings-inline .v-sheet{max-height:none;border-radius:var(--os-r-lg);margin-top:16px}
 .family-embed{border-radius:var(--os-r-lg);overflow:hidden}
+/* Native fit for embedded workstream screens */
+.os-screen .rw-cam{aspect-ratio:4/3;max-height:34dvh;border-radius:var(--os-r-lg)}
+.os-screen .glass{border-radius:var(--os-r-md)}
+.os-screen .v-aurora,.os-screen .os > .v-aurora{display:none}
+.os-screen .os{min-height:0;padding:0 0 20px}
+.os-screen .glass{background:var(--os-glass);border:1px solid var(--os-glass-border);backdrop-filter:var(--os-blur);-webkit-backdrop-filter:var(--os-blur);box-shadow:var(--os-shadow)}
+.os-screen button.glass{min-height:64px;color:#fff;font-weight:700;transition:transform .15s}
+.os-screen button.glass:active{transform:scale(.96)}
