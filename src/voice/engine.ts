@@ -78,7 +78,7 @@ export class ClonedVoiceEngine implements VoiceEngine {
   private opts: Required<Omit<ClonedVoiceOptions, 'onFallback'>> & ClonedVoiceOptions;
 
   constructor(opts: ClonedVoiceOptions = {}) {
-    this.opts = { timeoutMs: 6000, ...opts };
+    this.opts = { timeoutMs: 8000, ...opts };
   }
 
   async ready(): Promise<boolean> {
