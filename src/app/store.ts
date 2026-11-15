@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react';
 import type { PersonContext } from '../contracts';
 import { FRANK_CONTEXT } from './os/persona';
 
-const KEY = 'voiceos.context.v1';
+const KEY = 'voiceos.context.v2';
 export const demoContext = FRANK_CONTEXT;
 
 let current: PersonContext = (() => {
