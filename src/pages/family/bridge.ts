@@ -11,7 +11,7 @@ export interface PaymentRequest {
 export const useInbox = () => useStored<PictureMessage[]>(KEYS.inbox, []);
 export const usePayments = () =>
   useStored<PaymentRequest[]>(KEYS.payments, [
-    { id: 'seed-bill', payee: 'Electric bill', amount: 84.2, note: 'Read from a bill with the camera · due Nov 20', at: Date.now(), status: 'pending' },
+    { id: 'seed-bill', payee: 'Electric bill', amount: 84.12, note: 'Electric bill read with the camera · due Nov 21', at: Date.now(), status: 'pending' },
   ]);
 
 /** For the patient app / vision: queue a payment for family confirmation. */

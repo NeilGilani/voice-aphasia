@@ -6,7 +6,7 @@ import { SpeechRec, listenOnce, readFileAsDataUrl, uid } from '../shared';
 import { useDay } from '../myday/day';
 import { usePractice } from '../practice/practiceData';
 import { useInbox, usePayments } from './bridge';
-import '../../app/app.css';
+import '../../app/os/tokens.css';
 import '../os.css';
 
 const PICS = ['❤️', '👋', '🎂', '🍽️', '💊', '🚗', '📞', '🏠', '⚾', '😴', '🎉', '🌞'];
@@ -19,13 +19,13 @@ export default function FamilyBridge() {
   const [ctx] = usePersonContext();
   const [tab, setTab] = useState<Tab>('today');
   return (
-    <div className="os">
-      <div className="v-aurora" aria-hidden />
-      <header className="glass os-top">
-        <a className="os-back" href="#/">‹ Voice</a>
+    <div className="sp">
+      <div className="os-wall" aria-hidden />
+      <header className="os-glass sp-top">
+        <a className="sp-back" href="#/">‹ Voice</a>
         <h1>👨‍👩‍👧 Family · {ctx.name}</h1>
       </header>
-      <nav className="glass os-tabs">
+      <nav className="os-glass sp-tabs">
         {([['today', 'Today'], ['message', 'Send picture'], ['simplify', 'Say it simply'], ['money', 'Payments']] as [Tab, string][]).map(([k, l]) => (
           <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>
         ))}
@@ -52,16 +52,16 @@ function Today() {
   ].sort((a, b) => b.at - a.at);
   return (
     <>
-      <div className="os-grid" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
-        <div className="glass fb-stat"><b>{said.length}</b><span className="os-muted">sentences said</span></div>
-        <div className="glass fb-stat"><b>{done.length}/{day.items.length}</b><span className="os-muted">routine done</span></div>
-        <div className="glass fb-stat"><b>{tries.filter((t) => t.ok).length}</b><span className="os-muted">words practised</span></div>
+      <div className="sp-grid" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
+        <div className="os-glass fb-stat"><b>{said.length}</b><span className="sp-muted">sentences said</span></div>
+        <div className="os-glass fb-stat"><b>{done.length}/{day.items.length}</b><span className="sp-muted">routine done</span></div>
+        <div className="os-glass fb-stat"><b>{tries.filter((t) => t.ok).length}</b><span className="sp-muted">words practised</span></div>
       </div>
-      <p className="os-kicker">Activity</p>
-      <section className="glass os-sec fb-feed">
+      <p className="sp-kicker">Activity</p>
+      <section className="os-glass sp-sec fb-feed">
         {feed.length ? feed.map((f, i) => (
-          <div key={i} className="fb-item os-anim"><span style={{ fontSize: 24 }}>{f.icon}</span><span>{f.text}</span><time>{hhmm(f.at)}</time></div>
-        )) : <p className="os-muted">Nothing yet today. Activity appears here as {ctx.name} uses Voice.</p>}
+          <div key={i} className="fb-item sp-anim"><span style={{ fontSize: 24 }}>{f.icon}</span><span>{f.text}</span><time>{hhmm(f.at)}</time></div>
+        )) : <p className="sp-muted">Nothing yet today. Activity appears here as {ctx.name} uses Voice.</p>}
       </section>
     </>
   );
@@ -71,7 +71,7 @@ function Message() {
   const [inbox, setInbox] = useInbox();
   const [icon, setIcon] = useState('❤️');
   const [text, setText] = useState('');
-  const [from, setFrom] = useState('Ellie');
+  const [from, setFrom] = useState("Maria");
   const [photo, setPhoto] = useState<string>();
   const [lines, setLines] = useState<SimpleLine[]>([]);
 
@@ -85,23 +85,23 @@ function Message() {
   };
   return (
     <>
-      <section className="glass os-sec">
-        <div className="os-row" style={{ marginBottom: 12 }}>
-          <span className="os-muted">From</span>
-          <input className="os-in" style={{ maxWidth: 180 }} value={from} onChange={(e) => setFrom(e.target.value)} />
+      <section className="os-glass sp-sec">
+        <div className="sp-row" style={{ marginBottom: 12 }}>
+          <span className="sp-muted">From</span>
+          <input className="sp-in" style={{ maxWidth: 180 }} value={from} onChange={(e) => setFrom(e.target.value)} />
         </div>
-        <div className="os-row">{PICS.map((p) => <button key={p} className={`fb-pic ${icon === p ? 'on' : ''}`} onClick={() => setIcon(p)}>{p}</button>)}</div>
-        <textarea className="os-in" style={{ marginTop: 12 }} placeholder="Write normally — we'll shorten it for him" value={text} onChange={(e) => setText(e.target.value)} />
-        <div className="os-row" style={{ marginTop: 12, justifyContent: 'space-between' }}>
-          <label className="os-btn ghost">📷 {photo ? 'Photo added' : 'Add photo'}<input type="file" accept="image/*" hidden onChange={async (e) => e.target.files?.[0] && setPhoto(await readFileAsDataUrl(e.target.files[0]))} /></label>
-          <button className="os-btn" onClick={send}>Send {icon}</button>
+        <div className="sp-row">{PICS.map((p) => <button key={p} className={`fb-pic ${icon === p ? 'on' : ''}`} onClick={() => setIcon(p)}>{p}</button>)}</div>
+        <textarea className="sp-in" style={{ marginTop: 12 }} placeholder="Write normally — we'll shorten it for him" value={text} onChange={(e) => setText(e.target.value)} />
+        <div className="sp-row" style={{ marginTop: 12, justifyContent: 'space-between' }}>
+          <label className="sp-btn ghost">📷 {photo ? 'Photo added' : 'Add photo'}<input type="file" accept="image/*" hidden onChange={async (e) => e.target.files?.[0] && setPhoto(await readFileAsDataUrl(e.target.files[0]))} /></label>
+          <button className="sp-btn" onClick={send}>Send {icon}</button>
         </div>
       </section>
-      {lines.length > 0 && <p className="os-muted" style={{ textAlign: 'center' }}>Sent as: {lines.map((l) => `${l.icon} ${l.text}`).join('  ')}</p>}
-      <p className="os-kicker">Sent</p>
+      {lines.length > 0 && <p className="sp-muted" style={{ textAlign: 'center' }}>Sent as: {lines.map((l) => `${l.icon} ${l.text}`).join('  ')}</p>}
+      <p className="sp-kicker">Sent</p>
       <section className="fb-feed">
         {inbox.map((m) => (
-          <div key={m.id} className="glass fb-item">
+          <div key={m.id} className="os-glass fb-item">
             <span style={{ fontSize: 34 }}>{m.icon}</span>
             <div><b>{m.from}</b><div>{m.text}</div>{m.photo && <img src={m.photo} alt="" style={{ maxWidth: 160, borderRadius: 12, marginTop: 8 }} />}</div>
             <time>{hhmm(m.at)}{m.read ? ' · seen' : ''}</time>
@@ -125,22 +125,22 @@ function Simplify() {
   };
   return (
     <>
-      <section className="glass os-sec">
-        <p className="os-muted" style={{ marginTop: 0 }}>Talk normally. Show him the screen.</p>
-        <div className="os-row">
-          <button className="os-btn" disabled={!SpeechRec || busy} onClick={async () => { setBusy(true); const t = await listenOnce(8000); setSaid(t); setBusy(false); run(t); }}>🎙 {busy ? 'Listening…' : 'Speak'}</button>
-          <button className="os-btn ghost" onClick={() => { const t = "Hi Dad, so um, Ellie's coming over tomorrow after school, and we're going to have cake for her birthday, and then I'll drive you to the doctor on Monday at ten."; setSaid(t); run(t); }}>Try example</button>
+      <section className="os-glass sp-sec">
+        <p className="sp-muted" style={{ marginTop: 0 }}>Talk normally. Show him the screen.</p>
+        <div className="sp-row">
+          <button className="sp-btn" disabled={!SpeechRec || busy} onClick={async () => { setBusy(true); const t = await listenOnce(8000); setSaid(t); setBusy(false); run(t); }}>🎙 {busy ? 'Listening…' : 'Speak'}</button>
+          <button className="sp-btn ghost" onClick={() => { const t = "Hi Dad, so um, Ellie's coming over tomorrow after school, and we're going to have cake for her birthday, and then I'll drive you to the doctor on Monday at ten."; setSaid(t); run(t); }}>Try example</button>
         </div>
-        <textarea className="os-in" style={{ marginTop: 12 }} placeholder="…or type" value={said} onChange={(e) => setSaid(e.target.value)} />
-        <button className="os-btn" style={{ marginTop: 12 }} disabled={busy || !said.trim()} onClick={() => run(said)}>Make it simple</button>
+        <textarea className="sp-in" style={{ marginTop: 12 }} placeholder="…or type" value={said} onChange={(e) => setSaid(e.target.value)} />
+        <button className="sp-btn" style={{ marginTop: 12 }} disabled={busy || !said.trim()} onClick={() => run(said)}>Make it simple</button>
       </section>
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }} aria-live="polite">
         {lines.map((l, i) => (
-          <div key={i} className="glass fam-card" style={{ animationDelay: `${i * 90}ms` }}>
+          <div key={i} className="os-glass fam-card" style={{ animationDelay: `${i * 90}ms` }}>
             <span className="fam-icon" aria-hidden>{l.icon}</span><span className="fam-line">{l.text}</span>
           </div>
         ))}
-        {src === 'local' && <p className="os-muted" style={{ textAlign: 'center' }}>Offline simplifier (server not reachable)</p>}
+        {src === 'local' && <p className="sp-muted" style={{ textAlign: 'center' }}>Offline simplifier (server not reachable)</p>}
       </section>
     </>
   );
@@ -151,23 +151,23 @@ function Money() {
   const set = (id: string, status: 'approved' | 'declined') => setPays(pays.map((p) => (p.id === id ? { ...p, status } : p)));
   return (
     <>
-      <p className="os-muted">When he wants to pay something, you double-check it here. Voice never moves money on its own. This prototype only records the decision.</p>
+      <p className="sp-muted">When he wants to pay something, you double-check it here. Voice never moves money on its own. This prototype only records the decision.</p>
       <section className="fb-feed">
         {pays.map((p) => (
-          <div key={p.id} className="glass fb-pay os-anim">
+          <div key={p.id} className="os-glass fb-pay sp-anim">
             <span style={{ fontSize: 34 }}>🧾</span>
             <div style={{ flex: 1 }}>
-              <b>{p.payee}</b><div className="fb-amt">${p.amount.toFixed(2)}</div><div className="os-muted">{p.note}</div>
+              <b>{p.payee}</b><div className="fb-amt">${p.amount.toFixed(2)}</div><div className="sp-muted">{p.note}</div>
             </div>
             {p.status === 'pending' ? (
-              <div className="os-row">
-                <button className="os-btn ok" onClick={() => set(p.id, 'approved')}>✓ Looks right</button>
-                <button className="os-btn no" onClick={() => set(p.id, 'declined')}>✕ Stop</button>
+              <div className="sp-row">
+                <button className="sp-btn ok" onClick={() => set(p.id, 'approved')}>✓ Looks right</button>
+                <button className="sp-btn no" onClick={() => set(p.id, 'declined')}>✕ Stop</button>
               </div>
-            ) : <span className="os-chip">{p.status === 'approved' ? '✓ Confirmed' : '✕ Stopped'}</span>}
+            ) : <span className="sp-chip">{p.status === 'approved' ? '✓ Confirmed' : '✕ Stopped'}</span>}
           </div>
         ))}
-        {!pays.length && <p className="os-muted">No payments waiting.</p>}
+        {!pays.length && <p className="sp-muted">No payments waiting.</p>}
       </section>
     </>
   );

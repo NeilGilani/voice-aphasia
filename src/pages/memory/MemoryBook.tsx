@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react';
 import { usePersonContext } from '../../app/store';
 import { KEYS, readFileAsDataUrl, speak, useStored } from '../shared';
-import '../../app/app.css';
+import '../../app/os/tokens.css';
 import '../os.css';
 
 export interface MemoryData {
@@ -17,11 +17,11 @@ export interface MemoryData {
 }
 
 export const emptyMemory: MemoryData = {
-  lifeStory: 'Grew up in San Jose. Worked 30 years as a machinist. Married Rosa in 1978. Coaches Little League in spring.',
+  lifeStory: 'Grew up in San Jose. Worked 30 years as a machinist. Married Maria in 1978. Has a dog named Biscuit. Stroke in March 2025.',
   topics: ['The Giants', 'Fishing at Lake Tahoe', 'Old cars'],
   people: {
-    Ellie: { stories: ['Taught her to ride a bike on Elm Street.', 'Calls every Sunday night.'] },
-    Rosa: { stories: ['Met at a dance in 1976.'] },
+    Ellie: { stories: ['Taught her to ride a bike on Elm Street.', 'Studying at college; calls on Sundays.'] },
+    Maria: { stories: ['Met at a dance in 1976.'] },
   },
   derived: [],
 };
@@ -86,17 +86,17 @@ export default function MemoryBook() {
   const person = ctx.people.find((p) => p.name === open);
 
   return (
-    <div className="os">
-      <div className="v-aurora" aria-hidden />
-      <header className="glass os-top">
-        <a className="os-back" href="#/app">‹ Back</a>
+    <div className="sp">
+      <div className="os-wall" aria-hidden />
+      <header className="os-glass sp-top">
+        <a className="sp-back" href="#/app">‹ Back</a>
         <h1>📖 {ctx.name}'s Memory Book</h1>
       </header>
 
-      <p className="os-kicker">People</p>
-      <div className="os-grid">
+      <p className="sp-kicker">People</p>
+      <div className="sp-grid">
         {ctx.people.map((p) => (
-          <button key={p.name} className="glass mb-person os-anim" onClick={() => { setOpen(p.name); speak(`${p.name}, your ${p.relation}`); }}>
+          <button key={p.name} className="os-glass mb-person sp-anim" onClick={() => { setOpen(p.name); speak(`${p.name}, your ${p.relation}`); }}>
             {mem.people[p.name]?.photo
               ? <img className="mb-face" src={mem.people[p.name].photo} alt="" />
               : <div className="mb-face">{initial(p.name)}</div>}
@@ -107,8 +107,8 @@ export default function MemoryBook() {
       </div>
 
       {person && (
-        <section className="glass os-sec os-anim" style={{ marginTop: 14 }}>
-          <div className="os-row">
+        <section className="os-glass sp-sec sp-anim" style={{ marginTop: 14 }}>
+          <div className="sp-row">
             {mem.people[person.name]?.photo
               ? <img className="mb-face" style={{ margin: 0 }} src={mem.people[person.name].photo} alt="" />
               : <div className="mb-face" style={{ margin: 0 }}>{initial(person.name)}</div>}
@@ -116,47 +116,47 @@ export default function MemoryBook() {
               <div className="mb-name" style={{ fontSize: 26 }}>{person.name}</div>
               <div className="mb-rel">{person.relation}{person.phone ? ` · ${person.phone}` : ''}</div>
             </div>
-            <label className="os-btn ghost">📷 Photo<input type="file" accept="image/*" hidden onChange={(e) => setPhoto(person.name, e.target.files?.[0])} /></label>
+            <label className="sp-btn ghost">📷 Photo<input type="file" accept="image/*" hidden onChange={(e) => setPhoto(person.name, e.target.files?.[0])} /></label>
           </div>
-          <p className="os-kicker">Stories</p>
+          <p className="sp-kicker">Stories</p>
           {(mem.people[person.name]?.stories ?? []).map((s, i) => <div key={i} className="mb-story">{s}</div>)}
-          <div className="os-row" style={{ marginTop: 8 }}>
-            <input className="os-in" style={{ flex: 1 }} placeholder={`A memory with ${person.name}…`} value={story}
+          <div className="sp-row" style={{ marginTop: 8 }}>
+            <input className="sp-in" style={{ flex: 1 }} placeholder={`A memory with ${person.name}…`} value={story}
               onChange={(e) => setStory(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addStory(person.name)} />
-            <button className="os-btn" onClick={() => addStory(person.name)}>Add</button>
+            <button className="sp-btn" onClick={() => addStory(person.name)}>Add</button>
           </div>
-          <div className="os-row" style={{ marginTop: 14, justifyContent: 'space-between' }}>
-            <button className="os-btn ghost" onClick={() => setOpen(null)}>Close</button>
-            <button className="os-btn ghost" onClick={() => removePerson(person.name)}>Remove</button>
+          <div className="sp-row" style={{ marginTop: 14, justifyContent: 'space-between' }}>
+            <button className="sp-btn ghost" onClick={() => setOpen(null)}>Close</button>
+            <button className="sp-btn ghost" onClick={() => removePerson(person.name)}>Remove</button>
           </div>
         </section>
       )}
 
-      <section className="glass os-sec" style={{ marginTop: 14 }}>
-        <p className="os-muted" style={{ marginTop: 0 }}>Add someone</p>
-        <div className="os-row">
-          <input className="os-in" style={{ flex: 2, minWidth: 120 }} placeholder="Name" value={newP.name} onChange={(e) => setNewP({ ...newP, name: e.target.value })} />
-          <input className="os-in" style={{ flex: 2, minWidth: 120 }} placeholder="Relation (granddaughter…)" value={newP.relation} onChange={(e) => setNewP({ ...newP, relation: e.target.value })} />
-          <input className="os-in" style={{ flex: 2, minWidth: 120 }} placeholder="Phone (optional)" value={newP.phone} onChange={(e) => setNewP({ ...newP, phone: e.target.value })} />
-          <button className="os-btn" onClick={addPerson}>+ Add</button>
+      <section className="os-glass sp-sec" style={{ marginTop: 14 }}>
+        <p className="sp-muted" style={{ marginTop: 0 }}>Add someone</p>
+        <div className="sp-row">
+          <input className="sp-in" style={{ flex: 2, minWidth: 120 }} placeholder="Name" value={newP.name} onChange={(e) => setNewP({ ...newP, name: e.target.value })} />
+          <input className="sp-in" style={{ flex: 2, minWidth: 120 }} placeholder="Relation (granddaughter…)" value={newP.relation} onChange={(e) => setNewP({ ...newP, relation: e.target.value })} />
+          <input className="sp-in" style={{ flex: 2, minWidth: 120 }} placeholder="Phone (optional)" value={newP.phone} onChange={(e) => setNewP({ ...newP, phone: e.target.value })} />
+          <button className="sp-btn" onClick={addPerson}>+ Add</button>
         </div>
       </section>
 
-      <p className="os-kicker">Life story</p>
-      <section className="glass os-sec">
-        <textarea className="os-in" rows={4} value={mem.lifeStory} onChange={(e) => setMem({ ...mem, lifeStory: e.target.value })} />
-        <p className="os-muted">Family can write this together. Voice uses it to understand what {ctx.name} means.</p>
+      <p className="sp-kicker">Life story</p>
+      <section className="os-glass sp-sec">
+        <textarea className="sp-in" rows={4} value={mem.lifeStory} onChange={(e) => setMem({ ...mem, lifeStory: e.target.value })} />
+        <p className="sp-muted">Family can write this together. Voice uses it to understand what {ctx.name} means.</p>
       </section>
 
-      <p className="os-kicker">Favourite topics</p>
-      <section className="glass os-sec">
-        <div className="os-row">
+      <p className="sp-kicker">Favourite topics</p>
+      <section className="os-glass sp-sec">
+        <div className="sp-row">
           {mem.topics.map((t) => (
-            <span key={t} className="os-chip">{t}<button aria-label={`Remove ${t}`} onClick={() => setMem({ ...mem, topics: mem.topics.filter((x) => x !== t) })}>✕</button></span>
+            <span key={t} className="sp-chip">{t}<button aria-label={`Remove ${t}`} onClick={() => setMem({ ...mem, topics: mem.topics.filter((x) => x !== t) })}>✕</button></span>
           ))}
         </div>
-        <div className="os-row" style={{ marginTop: 12 }}>
-          <input className="os-in" style={{ flex: 1 }} placeholder="Add a topic" value={topic} onChange={(e) => setTopic(e.target.value)}
+        <div className="sp-row" style={{ marginTop: 12 }}>
+          <input className="sp-in" style={{ flex: 1 }} placeholder="Add a topic" value={topic} onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter' && topic.trim()) { setMem({ ...mem, topics: [...mem.topics, topic.trim()] }); setTopic(''); } }} />
         </div>
       </section>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { usePersonContext } from '../../app/store';
 import PracticeCard from './PracticeCard';
 import { pickPracticeWord, usePractice, type Attempt } from './practiceData';
-import '../../app/app.css';
+import '../../app/os/tokens.css';
 import '../os.css';
 
 export default function Practice() {
@@ -16,21 +16,21 @@ export default function Practice() {
     'water', 'coffee', 'thank you',
   ])).slice(0, 12);
   return (
-    <div className="os">
-      <div className="v-aurora" aria-hidden />
-      <header className="glass os-top">
-        <a className="os-back" href="#/app">‹ Back</a>
+    <div className="sp">
+      <div className="os-wall" aria-hidden />
+      <header className="os-glass sp-top">
+        <a className="sp-back" href="#/app">‹ Back</a>
         <h1>🗣️ Practice</h1>
-        <a className="v-chip" href="#/progress" style={{ textDecoration: 'none' }}>Progress</a>
+        <a className="sp-pill" href="#/progress" style={{ textDecoration: 'none' }}>Progress</a>
       </header>
       {word ? (
         <div style={{ marginTop: 16 }}><PracticeCard key={word} word={word} ctx={ctx} onClose={() => setWord(null)} /></div>
       ) : (
         <>
-          <p className="os-kicker">Words from your life</p>
-          <div className="os-grid">
+          <p className="sp-kicker">Words from your life</p>
+          <div className="sp-grid">
             {pool.map((w) => (
-              <button key={w} className="glass mb-person" style={{ fontSize: 24, fontWeight: 700, padding: 24 }} onClick={() => setWord(w)}>{w}</button>
+              <button key={w} className="os-glass mb-person" style={{ fontSize: 24, fontWeight: 700, padding: 24 }} onClick={() => setWord(w)}>{w}</button>
             ))}
           </div>
         </>
@@ -60,21 +60,21 @@ export function Progress() {
     const u = URL.createObjectURL(blob); const el = document.createElement('a'); el.href = u; el.download = `${ctx.name}-practice.csv`; el.click(); URL.revokeObjectURL(u);
   };
   return (
-    <div className="os">
-      <div className="v-aurora" aria-hidden />
-      <header className="glass os-top">
-        <a className="os-back" href="#/practice">‹ Practice</a>
+    <div className="sp">
+      <div className="os-wall" aria-hidden />
+      <header className="os-glass sp-top">
+        <a className="sp-back" href="#/practice">‹ Practice</a>
         <h1>📈 {ctx.name} · speech practice</h1>
       </header>
-      <div className="os-grid" style={{ gridTemplateColumns: 'repeat(3,1fr)', marginTop: 16 }}>
-        <div className="glass fb-stat"><b>{a.length}</b><span className="os-muted">attempts</span></div>
-        <div className="glass fb-stat"><b>{a.length ? Math.round((ok.length / a.length) * 100) : 0}%</b><span className="os-muted">said correctly</span></div>
-        <div className="glass fb-stat"><b>{ok.filter((x) => x.cue === 'none').length}</b><span className="os-muted">with no cue</span></div>
+      <div className="sp-grid" style={{ gridTemplateColumns: 'repeat(3,1fr)', marginTop: 16 }}>
+        <div className="os-glass fb-stat"><b>{a.length}</b><span className="sp-muted">attempts</span></div>
+        <div className="os-glass fb-stat"><b>{a.length ? Math.round((ok.length / a.length) * 100) : 0}%</b><span className="sp-muted">said correctly</span></div>
+        <div className="os-glass fb-stat"><b>{ok.filter((x) => x.cue === 'none').length}</b><span className="sp-muted">with no cue</span></div>
       </div>
-      <p className="os-kicker">Successful words · last 14 days</p>
-      <section className="glass os-sec"><div className="pr-spark">{days.map((n, i) => <i key={i} style={{ height: `${(n / max) * 100}%` }} title={`${n}`} />)}</div></section>
-      <p className="os-kicker">By word</p>
-      <section className="glass os-sec" style={{ overflowX: 'auto' }}>
+      <p className="sp-kicker">Successful words · last 14 days</p>
+      <section className="os-glass sp-sec"><div className="pr-spark">{days.map((n, i) => <i key={i} style={{ height: `${(n / max) * 100}%` }} title={`${n}`} />)}</div></section>
+      <p className="sp-kicker">By word</p>
+      <section className="os-glass sp-sec" style={{ overflowX: 'auto' }}>
         {byWord.size ? (
           <table className="pr-table">
             <thead><tr><th>Word</th><th>Tries</th><th>Success</th><th>Best cue level</th></tr></thead>
@@ -90,13 +90,13 @@ export function Progress() {
               })}
             </tbody>
           </table>
-        ) : <p className="os-muted">No practice yet. Words come from sentences {ctx.name} chooses during the day.</p>}
+        ) : <p className="sp-muted">No practice yet. Words come from sentences {ctx.name} chooses during the day.</p>}
       </section>
-      <div className="os-row" style={{ justifyContent: 'space-between' }}>
-        <button className="os-btn" onClick={csv} disabled={!a.length}>⬇ Export CSV for therapist</button>
-        <button className="os-btn ghost" onClick={() => confirm('Clear all practice history?') && setP({ attempts: [] })}>Clear</button>
+      <div className="sp-row" style={{ justifyContent: 'space-between' }}>
+        <button className="sp-btn" onClick={csv} disabled={!a.length}>⬇ Export CSV for therapist</button>
+        <button className="sp-btn ghost" onClick={() => confirm('Clear all practice history?') && setP({ attempts: [] })}>Clear</button>
       </div>
-      <p className="os-muted">Practice log for a speech-language pathologist to review. Not a clinical assessment.</p>
+      <p className="sp-muted">Practice log for a speech-language pathologist to review. Not a clinical assessment.</p>
     </div>
   );
 }

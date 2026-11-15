@@ -1,25 +1,33 @@
-# 2-minute demo video: script + shot list
+# 2-minute demo video: script + shot list (checked against master)
 
-Spine: **read a bill with the camera → call Ellie → reply in his own voice.** The cheat-code moment is fragments → 3 cards → his own voice → Ellie answers.
-Cast: **Walter** (person with aphasia), **Ellie** (granddaughter, on the phone), **Rosa** (wife, Family bridge), **VO** narrator.
+Spine: **read a bill with the camera → call Ellie → reply in his own voice.**
+Cheat-code moment: fragments → 3 cards → his own voice → Ellie answers.
+Persona (from `src/app/os/persona.ts`): **Frank**, 71, expressive aphasia after a stroke in March 2025. **Ellie** is his granddaughter (birthday today, at college), **Maria** his wife, and **Biscuit** the dog.
 
-| Time | Shot | Audio / VO |
+## Pre-flight (do before recording)
+- Start the servers: `npm run dev` and the understand server on :8787. Pre-warm `/api/understand` once, since the first call is slow.
+- Clone Frank's voice in Settings (30–60 s sample). Otherwise the device voice is used. Say which one you used if asked.
+- Have `src/vision/read/samples/bill.png` printed or on a second screen. It's the electric bill, $84.12 due 11/21.
+- Clear localStorage keys `voice.practice.v1` and `voice.day.v1` for a clean Family view.
+
+## Shot list
+| Time | Shot (what's really on screen) | Audio / VO |
 |---|---|---|
-| 0:00–0:10 | Kitchen table, morning. Walter holds an envelope and stares at it. Close on the dense text. | VO: "Walter understands everything. But since his stroke, words don't work: not spoken, not written." |
-| 0:10–0:18 | Caption over his face: *About 2 million Americans live with aphasia — NIDCD*. | VO: "It's called aphasia." |
-| 0:18–0:25 | Title card on the aurora glass: **VoiceOS**. | VO: "So we rebuilt his phone around what he *can* do." |
-| 0:25–0:42 | **Read the bill.** He holds the bill up to the phone camera. The screen shows one big card: 🧾 "Electric bill. $84.20. Due Nov 20." He taps **Pay**. A chip appears: "Rosa will confirm." | Device voice reads the line aloud. Soft UI tick. |
-| 0:42–0:50 | Cut: Rosa's phone, Family bridge → Payments. She taps **✓ Looks right**. | VO: "He decides. Family double-checks. Nothing moves money on its own." |
-| 0:50–1:02 | Walter glances at the calendar (🎂 Ellie, Nov 15). Taps the talk button. Fragments pop up live: *water… no… Ellie… phone… birthday*. A camera chip shows "phone — pointed at". | His real halting voice. |
-| 1:02–1:12 | **Cheat-code moment.** Three glass cards rise: (1) "Call Ellie and wish her a happy birthday. Tell her I love her." (2) "Can you help me call Ellie?" (3) "I'd like some water." Small text: *You said Ellie + birthday; it's Nov 15.* | Music swells. |
-| 1:12–1:22 | He taps card 1. Close on his face. | **His own cloned voice:** "Call Ellie and wish her a happy birthday. Tell her I love her." |
-| 1:22–1:35 | Phone rings. Split screen: Ellie picks up, beaming. | Ellie: "Grandpa! I love you too! Are you coming Sunday?" |
-| 1:35–1:45 | **Reply in his own voice.** He says "Sunday… yes… cake". The cards show "Yes, I'll be there Sunday. Save me some cake." Tap. | His cloned voice says it. Ellie laughs. 3 s of held silence on his smile. |
-| 1:45–1:53 | Practice card slides up: "Want to try saying **Ellie**?" He says "El… Ellie." ⭐ | VO: "Every sentence becomes a little therapy." |
-| 1:53–2:00 | Montage tiles: Memory Book, My Day, Family bridge. End card: **VoiceOS: the words are still there.** BayValleyHacks 2026. | VO: "Elevate the ordinary. Give someone their life back." |
+| 0:00–0:10 | Kitchen table. Frank turns the bill over in his hands. Close on the dense small print. | VO: "Frank understands everything. Since his stroke, words don't work: not spoken, not written." |
+| 0:10–0:17 | Caption: *About 2 million Americans live with aphasia (NIDCD)*. | VO: "It's called aphasia." |
+| 0:17–0:24 | VoiceOS home screen: wallpaper, people tiles, Ellie's 🎂 message. | VO: "So we rebuilt his phone around what he can still do." |
+| 0:24–0:42 | **Read.** Home → 📷 Read. He holds up the bill. `ReadWorld` shows a few big emoji lines: the electric bill, $84.12, due Nov 21, plus action buttons (💳 pay / 🤝 help, ⏰ remind). It reads them aloud. | Device or cloned voice reads the lines. |
+| 0:42–0:52 | **Call by face.** Back → 📞 Phone → tap Ellie's face. The call screen shows "Calling…", then a live timer. | Ring sound (add in the edit). |
+| 0:52–1:05 | **Cheat-code moment.** On the live call he presses talk and says: "bill… help… Ellie… birthday." Fragments pop in. Three glass cards rise, with the best one highlighted and a small "because". | His real, halting voice. |
+| 1:05–1:15 | He taps the best card, e.g. "Happy birthday, Ellie. Can you help me pay the electric bill?" | **His cloned voice** says the sentence. |
+| 1:15–1:27 | Ellie's reply bubble appears: "Of course Grandpa, I'll pay it online tonight. Don't worry 💛". Cut to a real actor reading the same line on camera. | Ellie (actor) says the line warmly. |
+| 1:27–1:38 | **Reply in his own voice.** He taps the quick reply "I love you", or speaks "love… you… proud." Ellie's bubble: "Aww Grandpa 🥹 I love you too!" Hold 3 s on his face. | Cloned voice: "I love you." |
+| 1:38–1:48 | **Practice.** On the Talk screen after a choice, the PracticeCard slides up: "Want to practise one word? **Ellie** · El · lie". He says it, and ⭐ "Beautiful. You said it!" | VO: "Every sentence becomes a little therapy." |
+| 1:48–1:55 | Quick tiles at phone size: `#/family` Today (activity feed), `#/memory` (people faces), `#/day` (picture routine). | VO: "Family stays close. His life feeds the understanding." |
+| 1:55–2:00 | End card on the aurora: **VoiceOS: the words are still there.** BayValleyHacks 2026. | VO: "Elevate the ordinary." |
 
-**Production notes**
-- Record Walter's voice sample (30–60 s) first, for the clone.
-- Pre-load Memory Book (Ellie, granddaughter, birthday Nov 15) and seed the bill.
-- Run live model calls but pre-warm the server, since understanding takes about 7–9 s. Cut the wait in the edit, and say so if asked.
-- Screen-record at 60 fps. Keep the stat caption up at least 3 s.
+## Honesty notes for the cut (be ready to say these to judges)
+- **Calls are simulated in-app.** Ellie's replies on the call are scripted in `People.tsx`. The "📱 Real phone" button hands off to `tel:`. Say "simulated call" if asked.
+- Understanding takes about 7–9 s live. We cut the wait in the edit; the app shows a thinking state.
+- On master, the **Read** "pay/help" button opens an SMS to a helper. The Family-bridge payment confirmation (`#/family` → Payments) is a separate view with a seeded bill. Show it only as "family can confirm", not as wired to the bill scan.
+- Practice needs Chrome or Safari speech recognition. Exactly which three cards appear depends on the model, so record a few takes.

@@ -32,8 +32,8 @@ export default function PracticeCard({ sentence, word: forced, ctx, onClose }: {
   };
 
   return (
-    <section className="glass os-sec os-anim" aria-live="polite">
-      <p className="os-kicker" style={{ marginTop: 0 }}>Want to practise one word?</p>
+    <section className="os-glass sp-sec sp-anim" aria-live="polite">
+      <p className="sp-kicker" style={{ marginTop: 0 }}>Want to practise one word?</p>
       <div className="pr-word">{word.charAt(0).toUpperCase() + word.slice(1)}</div>
       <div className="pr-syl">{syllables(word).join(' · ')}</div>
       {cue === 'first-sound' && <p className="pr-fb" style={{ color: '#9fe7ff' }}>It starts with “{firstSound(word)}…”</p>}
@@ -44,12 +44,12 @@ export default function PracticeCard({ sentence, word: forced, ctx, onClose }: {
         {state === 'again' && 'Close! Try again.'}
         {state === 'done' && 'Good effort. We will try again later. 💜'}
       </p>
-      {heard && state !== 'listen' && <p className="os-muted" style={{ textAlign: 'center' }}>Heard: “{heard}”</p>}
-      {!SpeechRec && <p className="os-muted" style={{ textAlign: 'center' }}>Microphone practice needs Chrome or Safari.</p>}
-      <div className="os-row" style={{ justifyContent: 'center', marginTop: 10 }}>
-        {(state === 'ask' || state === 'again') && <button className="os-btn" onClick={tryIt} disabled={!SpeechRec}>🎙 Say it</button>}
-        <button className="os-btn ghost" onClick={() => speak(word)}>🔊 Hear it</button>
-        <button className="os-btn ghost" onClick={onClose}>{state === 'ok' || state === 'done' ? 'Done' : 'Not now'}</button>
+      {heard && state !== 'listen' && <p className="sp-muted" style={{ textAlign: 'center' }}>Heard: “{heard}”</p>}
+      {!SpeechRec && <p className="sp-muted" style={{ textAlign: 'center' }}>Microphone practice needs Chrome or Safari.</p>}
+      <div className="sp-row" style={{ justifyContent: 'center', marginTop: 10 }}>
+        {(state === 'ask' || state === 'again') && <button className="sp-btn" onClick={tryIt} disabled={!SpeechRec}>🎙 Say it</button>}
+        <button className="sp-btn ghost" onClick={() => speak(word)}>🔊 Hear it</button>
+        <button className="sp-btn ghost" onClick={onClose}>{state === 'ok' || state === 'done' ? 'Done' : 'Not now'}</button>
       </div>
     </section>
   );
