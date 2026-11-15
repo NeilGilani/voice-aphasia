@@ -10,6 +10,7 @@
 **Server**: `node server/understand.ts` (Node ≥ 23, no deps; port 8787, which Vite proxies as `/api`).
 - `POST /api/understand`, plus `?stream=1` (NDJSON partials, then the final result)
 - `POST /api/simplify`
+- `POST /api/read` `{image: dataURL}` → `{title, lines:[{text,icon}], amount?, due?, from?, suggestion?}` (client `readImage`). A test bill photo took 1.4 s.
 Each request uses a warm pool of headless `claude -p` processes on the user's Claude subscription. The prompt goes in as stream-json, with no tools, no MCP and no settings, `--effort low` and thinking off.
 - **Hedged:** each request goes to 2 pre-spawned processes and the first finisher wins.
 - **Resolves early:** it returns on the stream's `message_stop`, because the CLI emits its own `result` about 2 s later.

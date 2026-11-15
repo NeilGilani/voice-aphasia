@@ -53,3 +53,14 @@ export async function simplify(text: string, people?: { name: string; relation: 
   if (!r.ok) throw new Error(`simplify failed: ${r.status}`);
   return r.json();
 }
+
+export interface ReadResult { title: string; lines: { text: string; icon: string }[]; amount?: string; due?: string; from?: string; suggestion?: string }
+
+/** "Read the world": photo (JPEG data URL) of a bill/letter/label -> short lines with emoji. */
+export async function readImage(image: string, signal?: AbortSignal): Promise<ReadResult> {
+  const r = await fetch(`${BASE}/api/read`, {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ image }), signal,
+  });
+  if (!r.ok) throw new Error(`read failed: ${r.status}`);
+  return r.json();
+}

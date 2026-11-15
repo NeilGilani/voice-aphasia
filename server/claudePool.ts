@@ -41,7 +41,7 @@ export function prewarm(model: string, system: string) { refill(model, system); 
  * Run one prompt. `onText` receives the accumulated text as it streams.
  * Resolves with the full text.
  */
-function askOne(model: string, system: string, prompt: string, onText?: (acc: string) => void, timeoutMs = 25_000): { done: Promise<string>; kill: () => void } {
+function askOne(model: string, system: string, prompt: string | unknown[], onText?: (acc: string) => void, timeoutMs = 25_000): { done: Promise<string>; kill: () => void } {
   const k = key(model, system);
   refill(model, system);
   const p = pools.get(k)!;
@@ -75,7 +75,7 @@ function askOne(model: string, system: string, prompt: string, onText?: (acc: st
 }
 
 /** Run one prompt (hedged). `onText` receives accumulated text from whichever process streams first. */
-export async function ask(model: string, system: string, prompt: string, onText?: (acc: string) => void): Promise<string> {
+export async function ask(model: string, system: string, prompt: string | unknown[], onText?: (acc: string) => void): Promise<string> {
   let leader = -1;
   const runs = Array.from({ length: Math.max(1, HEDGE) }, (_, i) =>
     askOne(model, system, prompt, (acc) => { if (leader < 0) leader = i; if (leader === i) onText?.(acc); }));
