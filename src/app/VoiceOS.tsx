@@ -6,8 +6,9 @@ import Talk from './screens/Talk';
 import Read from './screens/Read';
 import { Call, Person, Phone } from './screens/People';
 import { Messages, Thread } from './screens/Messages';
-import { Emergency, MemoryBook, MemoryDetail, Money, MyDay, Practice } from './screens/Life';
-import { AboutMe, Family } from './screens/System';
+import { Emergency, MemoryDetail, Money } from './screens/Life';
+import { FamilyBridge, MemoryBook, MyDay, Practice, Progress } from '../pages';
+import { AboutMe } from './screens/System';
 import { MESSAGES } from './os/persona';
 
 const unread = () => MESSAGES.filter((m) => !m.read).length;
@@ -21,7 +22,8 @@ registerApp({ id: 'money', name: 'Money', emoji: '💵', hue: 120, component: Mo
 registerApp({ id: 'day', name: 'My Day', emoji: '☀️', hue: 45, component: MyDay });
 registerApp({ id: 'memories', name: 'Memories', emoji: '📖', hue: 25, component: MemoryBook });
 registerApp({ id: 'practice', name: 'Practice', emoji: '🎯', hue: 300, component: Practice });
-registerApp({ id: 'family', name: 'Family', emoji: '👨‍👩‍👧', hue: 15, component: Family });
+registerApp({ id: 'family', name: 'Family', emoji: '👨‍👩‍👧', hue: 15, component: FamilyBridge });
+registerApp({ id: 'progress', name: 'Progress', emoji: '📈', hue: 160, component: Progress });
 registerApp({ id: 'sos', name: 'Emergency', emoji: '🚨', hue: 355, component: Emergency });
 registerApp({ id: 'settings', name: 'Settings', emoji: '⚙️', hue: 230, component: AboutMe });
 registerApp({ id: 'person', name: 'Person', emoji: '👤', hue: 0, component: Person, hidden: true });

@@ -1,35 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import type { PersonContext } from '../contracts';
-
 import { FRANK_CONTEXT } from './os/persona';
 
 const KEY = 'voiceos.context.v1';
+export const demoContext = FRANK_CONTEXT;
 
-export const demoContext: PersonContext = {
-  name: 'Walter',
-  people: [
-    { name: 'Ellie', relation: 'daughter', phone: '+15555550142', notes: 'Lives in Portland' },
-    { name: 'Rosa', relation: 'wife' },
-    { name: 'Dr. Patel', relation: 'speech therapist' },
-  ],
-  routines: [
-    { time: '08:00', what: 'Morning pills' },
-    { time: '15:00', what: 'Speech therapy' },
-  ],
-  history: [],
-  facts: ["Ellie's birthday is November 15", 'Loves the Giants', 'Takes coffee black'],
-};
+let current: PersonContext = (() => {
+  try { const raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw) as PersonContext; } catch { /* ignore */ }
+  return FRANK_CONTEXT;
+})();
+const subs = new Set<() => void>();
 
+function set(next: PersonContext | ((p: PersonContext) => PersonContext)) {
+  current = typeof next === 'function' ? next(current) : next;
+  try { localStorage.setItem(KEY, JSON.stringify(current)); } catch { /* ignore */ }
+  subs.forEach((f) => f());
+}
+
+/** One shared PersonContext for every screen (OS, story pages, vision). */
 export function usePersonContext() {
-  const [ctx, setCtx] = useState<PersonContext>(() => {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) return JSON.parse(raw) as PersonContext;
-    } catch { /* ignore */ }
-    return FRANK_CONTEXT;
-  });
-  useEffect(() => {
-    try { localStorage.setItem(KEY, JSON.stringify(ctx)); } catch { /* ignore */ }
-  }, [ctx]);
-  return [ctx, setCtx] as const;
+  const ctx = useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => current);
+  return [ctx, set] as const;
 }

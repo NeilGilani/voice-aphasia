@@ -49,7 +49,7 @@ export const MEMORIES: Memory[] = [
 ];
 
 export const BILLS: Bill[] = [
-  { id: 'pge', from: 'PG&E', what: 'Electric', amount: 84.2, due: 'Fri, Nov 20', emoji: '⚡' },
+  { id: 'pge', from: 'Valley Power', what: 'Electric', amount: 84.12, due: 'Sat, Nov 21', emoji: '⚡' },
   { id: 'phone', from: 'Verizon', what: 'Phone', amount: 45, due: 'Nov 28', emoji: '📱' },
   { id: 'rx', from: 'CVS Pharmacy', what: 'Medicine', amount: 12.5, due: 'Paid', emoji: '💊', paid: true },
 ];
@@ -64,7 +64,7 @@ export const FRANK_CONTEXT: PersonContext = {
     "Today is Ellie's birthday (Nov 15); she is at college",
     'Loves the Giants', 'Retired carpenter', 'Drinks coffee black',
     'Dog named Biscuit', 'Right side weak after stroke in 2025',
-    'Electric bill from PG&E: $84.20 due Friday Nov 20',
+    'Electric bill from Valley Power: $84.12 due Saturday',
   ],
 };
 

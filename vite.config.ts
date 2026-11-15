@@ -6,6 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
-    proxy: { '/api': 'http://localhost:8787' },
+    proxy: {
+      '/api/read': 'http://localhost:8788',
+      '/api': 'http://localhost:8787',
+    },
   },
 })
