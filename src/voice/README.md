@@ -13,6 +13,8 @@ uv venv --python 3.12 ~/voice-ext/f5env
 VIRTUAL_ENV=~/voice-ext/f5env uv pip install f5-tts-mlx mlx-whisper fastapi uvicorn python-multipart soundfile
 ~/voice-ext/f5env/bin/python server/voice_server.py   # :8790; needs ffmpeg (brew)
 ```
+Natural fallback voice (optional): `uv venv --python 3.12 ~/voice-ext/mlxaudio && VIRTUAL_ENV=~/voice-ext/mlxaudio uv pip install mlx-audio "misaki[en]" fastapi uvicorn soundfile` + the spaCy `en_core_web_sm` wheel, then `~/voice-ext/mlxaudio/bin/python server/voice_kokoro.py` (:8792).
+
 In `vite.config.ts` (integration lead), add `server: { proxy: { '/api/voice': 'http://127.0.0.1:8790' } }`, or set `VITE_VOICE_API=http://127.0.0.1:8790/api/voice`.
 
 ## Use

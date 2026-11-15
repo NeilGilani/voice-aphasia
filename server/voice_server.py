@@ -37,7 +37,12 @@ from f5_tts_mlx.utils import convert_char_to_pinyin
 DATA = Path(os.environ.get("VOICE_DATA", Path.home() / "voice-ext" / "data"))
 DATA.mkdir(parents=True, exist_ok=True)
 REF_WAV, META = DATA / "ref.wav", DATA / "voice.json"
+DISK = DATA / "cache"  # pre-generated lines survive restarts
+DISK.mkdir(exist_ok=True)
+# A/B (docs/voice-samples): quality barely changes past 8 steps; 16 is a touch smoother at
+# ~2x time, so pre-generated lines (prepare) use 16 and live cache misses use 8.
 STEPS = int(os.environ.get("VOICE_STEPS", "8"))
+PREPARE_STEPS = int(os.environ.get("VOICE_PREPARE_STEPS", "16"))
 MAX_REF_S = 10.0
 
 app = FastAPI()
@@ -75,14 +80,14 @@ def load_voice():
         cache.clear()
 
 
-def synth(text: str) -> bytes:
+def synth(text: str, steps: int = STEPS) -> bytes:
     ref, meta = state["ref"], state["meta"]
     ref_text = meta["ref_text"]
     dur = int(estimated_duration(ref, ref_text, text) * FRAMES_PER_SEC)
     if True:
         wave, _ = model().sample(
             mx.expand_dims(ref, 0), text=convert_char_to_pinyin([ref_text + " " + text]),
-            duration=dur, steps=STEPS, method="rk4", cfg_strength=2.0, sway_sampling_coef=-1.0, seed=7,
+            duration=dur, steps=steps, method="rk4", cfg_strength=2.0, sway_sampling_coef=-1.0, seed=7,
         )
         wave = wave[ref.shape[0]:]
         mx.eval(wave)
@@ -96,25 +101,28 @@ def key(text: str) -> str:
     return hashlib.sha1((state["meta"]["id"] + "|" + text.strip().lower()).encode()).hexdigest()
 
 
-def _synth_cached(k: str, text: str) -> bytes:
+def _synth_cached(k: str, text: str, steps: int = STEPS) -> bytes:
     t0 = time.time()
-    data = synth(text)
-    print(f"[voice] synth {time.time()-t0:.2f}s: {text[:60]!r}", flush=True)
+    data = synth(text, steps)
+    print(f"[voice] synth {time.time()-t0:.2f}s ({steps} steps): {text[:60]!r}", flush=True)
     cache[k] = data
+    (DISK / f"{k}.wav").write_bytes(data)
     if len(cache) > 200:
         cache.popitem(last=False)
     return data
 
 
-def audio_future(text: str) -> cf.Future:
+def audio_future(text: str, steps: int = STEPS) -> cf.Future:
     k = key(text)
     with inflight_lock:
+        if k not in cache and (DISK / f"{k}.wav").exists():
+            cache[k] = (DISK / f"{k}.wav").read_bytes()
         if k in cache:
             cache.move_to_end(k)
             f = cf.Future(); f.set_result(cache[k]); return f
         f = inflight.get(k)
         if f is None:
-            f = inflight[k] = submit(_synth_cached, k, text)
+            f = inflight[k] = submit(_synth_cached, k, text, steps)
             f.add_done_callback(lambda _f, k=k: inflight.pop(k, None))
         return f
 
@@ -142,7 +150,7 @@ async def clone(audio: UploadFile = File(...), name: str = Form("My"), ref_text:
         out = Path(d) / "ref.wav"
         # mono 24 kHz, trim silence at start, cap to MAX_REF_S (F5 wants a short reference)
         r = subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(src), "-vn", "-ac", "1", "-ar", str(SAMPLE_RATE),
-                            "-af", "silenceremove=start_periods=1:start_threshold=-45dB,loudnorm",
+                            "-af", "highpass=f=70,afftdn=nf=-25,silenceremove=start_periods=1:start_threshold=-45dB,loudnorm",
                             "-t", str(MAX_REF_S), str(out)], capture_output=True, text=True)
         if r.returncode != 0 or not out.exists():
             raise HTTPException(400, f"Couldn't read that audio: {r.stderr[-300:]}")
@@ -181,9 +189,24 @@ def speak(req: SpeakReq):
 @app.post("/api/voice/prepare")
 def prepare(req: PrepareReq):
     if state["meta"] is not None:
-        for t in req.texts[:5]:
-            audio_future(t[:400])
+        for t in req.texts[:20]:
+            audio_future(t[:400], PREPARE_STEPS)
     return {"ok": True}
+
+
+# ---- preset voice (Kokoro sidecar, server/voice_kokoro.py) ----------------------
+KOKORO = os.environ.get("KOKORO_URL", "http://127.0.0.1:8792")
+
+
+@app.post("/api/voice/preset/speak")
+def preset_speak(req: SpeakReq):
+    import urllib.request
+    try:
+        r = urllib.request.urlopen(urllib.request.Request(f"{KOKORO}/speak", data=json.dumps({"text": req.text}).encode(),
+                                   headers={"content-type": "application/json"}), timeout=20)
+        return Response(r.read(), media_type="audio/wav")
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(503, f"preset voice unavailable: {e}")
 
 
 # ---- call relay ---------------------------------------------------------------
