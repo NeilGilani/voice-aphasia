@@ -1,4 +1,4 @@
-import '../app/app.css';
+import '../app/os/tokens.css';
 import './os.css';
 import './landing.css';
 
@@ -22,21 +22,21 @@ const APPS = [
 export default function Landing() {
   return (
     <div className="lp">
-      <div className="v-aurora" aria-hidden />
-      <nav className="glass lp-nav">
-        <span className="v-brand"><i className="v-dot" />VoiceOS</span>
-        <span className="lp-links"><a href="#/family">For family</a><a href="#/app" className="os-btn">Open VoiceOS</a></span>
+      <div className="os-wall" aria-hidden />
+      <nav className="os-glass lp-nav">
+        <span className="lp-brand"><i className="lp-dot" />VoiceOS</span>
+        <span className="lp-links"><a href="#/family">For family</a><a href="#/app" className="sp-btn">Open VoiceOS</a></span>
       </nav>
 
       <header className="lp-hero">
-        <p className="os-kicker">An operating system for people living with aphasia</p>
+        <p className="sp-kicker">An operating system for people living with aphasia</p>
         <h1>The words are still there.<br /><em>We built everything else around that.</em></h1>
         <p className="lp-sub">
           After a stroke, someone can understand everything and know exactly what they mean, and still not be able to say it.
           Phones, bills, menus and messages all assume words. VoiceOS rebuilds them around what they can still do:
           faces, pictures, pointing and tapping.
         </p>
-        <div className="glass lp-demo">
+        <div className="os-glass lp-demo">
           <p className="lp-frag">water… no… Ellie… phone… birthday</p>
           <div className="lp-arrow">↓</div>
           <p className="lp-chosen">“Call Ellie and wish her a happy birthday. Tell her I love her.”</p>
@@ -56,7 +56,7 @@ export default function Landing() {
 
       <section className="lp-stats">
         {STATS.map((s) => (
-          <a key={s.n} className="glass lp-stat" href={s.href} target="_blank" rel="noreferrer">
+          <a key={s.n} className="os-glass lp-stat" href={s.href} target="_blank" rel="noreferrer">
             <b>{s.n}</b><span>{s.l}</span><small>Source: {s.src} ↗</small>
           </a>
         ))}
@@ -66,14 +66,14 @@ export default function Landing() {
         <h2>One home screen. Everything rebuilt.</h2>
         <div className="lp-grid">
           {APPS.map((a) => (
-            <a key={a.t} href={a.href} className="glass lp-app">
+            <a key={a.t} href={a.href} className="os-glass lp-app">
               <span className="lp-ic">{a.i}</span><h3>{a.t}</h3><p>{a.d}</p>
             </a>
           ))}
         </div>
       </section>
 
-      <section className="glass lp-how">
+      <section className="os-glass lp-how">
         <h2>How it understands</h2>
         <ol>
           <li><b>Hears the fragments.</b> Speech recognition that keeps the broken words and pauses.</li>
@@ -85,7 +85,7 @@ export default function Landing() {
 
       <footer className="lp-foot">
         <p>Elevate the ordinary: a birthday call, a bill, “I love you.”</p>
-        <p className="os-muted">Built at BayValleyHacks 2026. VoiceOS is an assistive prototype, not a medical device.</p>
+        <p className="sp-muted">Built at BayValleyHacks 2026. VoiceOS is an assistive prototype, not a medical device.</p>
       </footer>
     </div>
   );

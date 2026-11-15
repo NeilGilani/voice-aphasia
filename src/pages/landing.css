@@ -1,8 +1,8 @@
 .lp{position:relative;isolation:isolate;min-height:100dvh;color:#fff;padding:16px;overflow-x:hidden}
-.lp>*:not(.v-aurora){max-width:1040px;margin-left:auto;margin-right:auto}
+.lp>*:not(.os-wall){max-width:1040px;margin-left:auto;margin-right:auto}
 .lp-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 10px 10px 20px;position:sticky;top:12px;z-index:5}
-.lp-nav .v-brand{flex:0}.lp-links{display:flex;gap:18px;align-items:center}
-.lp-links a:not(.os-btn){color:rgba(255,255,255,.75);text-decoration:none;font-weight:600}.lp-links .os-btn{text-decoration:none}
+.lp-links{display:flex;gap:18px;align-items:center}
+.lp-links a:not(.sp-btn){color:rgba(255,255,255,.75);text-decoration:none;font-weight:600}.lp-links .sp-btn{text-decoration:none}
 .lp-hero{text-align:center;padding:80px 0 40px}
 .lp-hero h1{font-size:clamp(2.3rem,6.6vw,4.4rem);line-height:1.04;letter-spacing:-.04em;margin:8px 0 22px}
 .lp-hero h1 em{font-style:normal;background:linear-gradient(90deg,#b3a8ff,#38d0ff,#ff8fbf);-webkit-background-clip:text;background-clip:text;color:transparent}

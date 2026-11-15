@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { usePersonContext } from '../../app/store';
 import { speak, uid } from '../shared';
 import { nextItem, pretty, useDay, type DayItem } from './day';
-import '../../app/app.css';
+import '../../app/os/tokens.css';
 import '../os.css';
 
 const KIND_ICON: Record<DayItem['kind'], string> = { routine: '🌞', med: '💊', appt: '📅' };
@@ -41,29 +41,29 @@ export default function MyDay() {
   const doneCount = day.items.filter((i) => i.doneAt).length;
 
   return (
-    <div className="os">
-      <div className="v-aurora" aria-hidden />
-      <header className="glass os-top">
-        <a className="os-back" href="#/app">‹ Back</a>
+    <div className="sp">
+      <div className="os-wall" aria-hidden />
+      <header className="os-glass sp-top">
+        <a className="sp-back" href="#/app">‹ Back</a>
         <h1>🌞 {ctx.name}'s day</h1>
-        <span className="v-chip">{doneCount}/{day.items.length}</span>
+        <span className="sp-pill">{doneCount}/{day.items.length}</span>
       </header>
 
       {now ? (
-        <section className="glass md-now os-anim" style={{ marginTop: 16 }}>
+        <section className="os-glass md-now sp-anim" style={{ marginTop: 16 }}>
           <div className="big" aria-hidden>{now.icon}</div>
           <h2>{now.what}</h2>
-          <p className="os-muted" style={{ fontSize: 18 }}>{pretty(now.time)}</p>
-          <div className="os-row" style={{ justifyContent: 'center', marginTop: 12 }}>
-            <button className="os-btn ghost" onClick={() => speak(now.prompt)}>🔊 Tell me</button>
-            <button className="os-btn ok" onClick={() => toggle(now.id)}>✓ Done</button>
+          <p className="sp-muted" style={{ fontSize: 18 }}>{pretty(now.time)}</p>
+          <div className="sp-row" style={{ justifyContent: 'center', marginTop: 12 }}>
+            <button className="sp-btn ghost" onClick={() => speak(now.prompt)}>🔊 Tell me</button>
+            <button className="sp-btn ok" onClick={() => toggle(now.id)}>✓ Done</button>
           </div>
         </section>
       ) : (
-        <section className="glass md-now" style={{ marginTop: 16 }}><div className="big">🎉</div><h2>All done today</h2></section>
+        <section className="os-glass md-now" style={{ marginTop: 16 }}><div className="big">🎉</div><h2>All done today</h2></section>
       )}
 
-      <p className="os-kicker">Today</p>
+      <p className="sp-kicker">Today</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {items.map((i) => (
           <div key={i.id} className={`glass md-item ${i.doneAt ? 'done' : ''}`}>
@@ -78,18 +78,18 @@ export default function MyDay() {
       </div>
 
       {adding ? (
-        <section className="glass os-sec" style={{ marginTop: 14 }}>
-          <div className="os-row">
-            <input className="os-in" type="time" style={{ maxWidth: 140 }} value={draft.time} onChange={(e) => setDraft({ ...draft, time: e.target.value })} />
-            <select className="os-in" style={{ maxWidth: 160 }} value={draft.kind} onChange={(e) => setDraft({ ...draft, kind: e.target.value as DayItem['kind'] })}>
+        <section className="os-glass sp-sec" style={{ marginTop: 14 }}>
+          <div className="sp-row">
+            <input className="sp-in" type="time" style={{ maxWidth: 140 }} value={draft.time} onChange={(e) => setDraft({ ...draft, time: e.target.value })} />
+            <select className="sp-in" style={{ maxWidth: 160 }} value={draft.kind} onChange={(e) => setDraft({ ...draft, kind: e.target.value as DayItem['kind'] })}>
               <option value="routine">Routine</option><option value="med">Medicine</option><option value="appt">Appointment</option>
             </select>
-            <input className="os-in" style={{ flex: 1, minWidth: 160 }} placeholder="What" value={draft.what} onChange={(e) => setDraft({ ...draft, what: e.target.value })} />
-            <button className="os-btn" onClick={add}>Add</button>
+            <input className="sp-in" style={{ flex: 1, minWidth: 160 }} placeholder="What" value={draft.what} onChange={(e) => setDraft({ ...draft, what: e.target.value })} />
+            <button className="sp-btn" onClick={add}>Add</button>
           </div>
         </section>
       ) : (
-        <div style={{ textAlign: 'center', marginTop: 16 }}><button className="os-btn ghost" onClick={() => setAdding(true)}>+ Add to day (family)</button></div>
+        <div style={{ textAlign: 'center', marginTop: 16 }}><button className="sp-btn ghost" onClick={() => setAdding(true)}>+ Add to day (family)</button></div>
       )}
     </div>
   );
