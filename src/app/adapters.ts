@@ -79,8 +79,10 @@ export const deviceVoice: VoiceEngine = {
   },
 };
 
-/** Vision stub: ws/vision provides a real SeenObject[] source. */
-export async function currentlySeen(): Promise<SeenObject[]> { return []; }
+/** Vision: what the camera saw pointed at / held in the last few seconds (ws/vision). */
+export async function currentlySeen(): Promise<SeenObject[]> {
+  try { return (await import("../vision")).getSeenObjects(5); } catch { return []; }
+}
 
 /** Mic: browser Web Speech API with interim results, fragment-friendly. */
 export interface Listener { stop(): void }

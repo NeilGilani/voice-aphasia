@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import type { Candidate, Utterance, VoiceEngine } from '../contracts';
 import { currentlySeen, deviceVoice, listen, runAction, understand, type Listener } from './adapters';
 import { usePersonContext } from './store';
 import { Settings } from './Settings';
 import './app.css';
+
+const VisionCamera = lazy(() => import('../vision').then((m) => ({ default: m.VisionCamera })));
 
 type Turn = { who: 'person' | 'other'; text: string; at: number };
 type Phase = 'idle' | 'listening' | 'thinking' | 'choosing' | 'speaking';
@@ -18,6 +20,7 @@ export function PatientApp({ voice = deviceVoice }: { voice?: VoiceEngine }) {
   const [spoken, setSpoken] = useState<string | null>(null);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [showSettings, setShowSettings] = useState(false);
+  const [camOn, setCamOn] = useState(false);
   const rec = useRef<Listener | null>(null);
   const textRef = useRef('');
 
@@ -72,10 +75,12 @@ export function PatientApp({ voice = deviceVoice }: { voice?: VoiceEngine }) {
       <header className="v-top">
         <div className="v-brand"><span className="v-dot" />Voice</div>
         <div className="v-chip">{voice.label}{source && ` · ${source === 'claude' ? 'Claude' : 'offline'}`}</div>
+        <button className={`v-icon glass ${camOn ? 'on' : ''}`} onClick={() => setCamOn((v) => !v)} aria-label="Camera">◉</button>
         <button className="v-icon glass" onClick={() => setShowSettings(true)} aria-label="Settings">⚙︎</button>
       </header>
 
       <main className="v-main">
+        {camOn && <div className="v-cam glass"><Suspense fallback={null}><VisionCamera /></Suspense></div>}
         <section className={`v-heard glass ${transcript ? '' : 'empty'}`} aria-live="polite">
           <div className="v-kicker">I heard</div>
           <div className="v-frags">

@@ -75,3 +75,6 @@
 .v-pill button{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer}
 .v-sheet-foot{display:flex;justify-content:space-between;margin-top:24px}
 .v-primary{background:linear-gradient(135deg,#8b7bff,#38d0ff);border:none;color:#fff;font-weight:700;border-radius:14px;padding:12px 28px;font-size:17px;cursor:pointer}
+.v-icon.on{background:linear-gradient(135deg,#ffd666,#ff8a5c);color:#1a1030}
+.v-cam{overflow:hidden;padding:0;aspect-ratio:4/3;position:relative}
+.v-cam video,.v-cam canvas{width:100%;height:100%;object-fit:cover;display:block}
