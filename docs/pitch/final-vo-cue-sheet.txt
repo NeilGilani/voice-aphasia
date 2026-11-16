@@ -1,0 +1,32 @@
+VOICEOS FINAL VIDEO - VOICE-OVER CUE SHEET
+Video: voiceos-final-novo.mp4  (1920x1080, 1:26.5)
+The only sound in the video is Frank's cloned voice, 1:02.9 to 1:09.7. Do NOT talk during it.
+Every other second is silent, waiting for your voice. Times are minutes:seconds.
+
+SLOT 1   0:01 - 0:14   (screen: "They understand everything. The words come out wrong.")
+SAY:  "About two million Americans live with aphasia, most often after a stroke.
+       They understand everything. They know exactly what they want to say.
+       But the words come out wrong."
+
+SLOT 2   0:15 - 0:21   (screen: "My grandfather was affected by aphasia.")
+SAY:  "My grandfather was affected by aphasia. That's why I built this."
+
+SLOT 3   0:23 - 0:34   (screen: "Dictation / Siri today - recreation", "car... no... sick... sorry... love" types out)
+SAY:  "The voice assistant on every phone writes down your words perfectly.
+       For someone with aphasia, that's the problem. The words are wrong."
+
+OPTIONAL 0:35 - 0:48   (screen: Frank calls Ellie; she asks if he's coming to her party Saturday; he types "car no sick sorry love")
+SAY (optional, or leave silent):  "Frank calls his granddaughter Ellie. She asks if he's coming to her party on Saturday.
+       All he can get out is: car... no... sick... sorry... love."
+
+SLOT 4   0:50 - 1:01   (screen: three full sentences, top card highlighted)
+SAY:  "VoiceOS knows Ellie is his granddaughter, that her party is Saturday, and how Frank talks.
+       It understands what he means."
+       -> Stop talking by 1:02.
+
+SILENT   1:02 - 1:12   (Frank's own cloned voice plays: "I'm sorry, sweetheart. I'm sick, so I can't come Saturday. I love you.")
+       -> Say nothing. Let it land.
+
+SLOT 5   1:12 - 1:25   (screen: VoiceOS end card)
+SAY:  "We didn't build a new gadget. We took the voice assistant already on every phone,
+       and elevated it. From hearing your words, to understanding you. VoiceOS."
